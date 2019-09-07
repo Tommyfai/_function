@@ -90,12 +90,6 @@ input[type='checkbox'].mobile-checkbox:checked::after {
   height: 34px;
 }
 
-@media (min-width: 769px) and (max-width: 960px) {
-  .ww-select {
-    border: 1px solid red;
-  }
-}
-
 .ww-select::after {
   content: ' ';
   display: inline-block;
