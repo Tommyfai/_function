@@ -1,0 +1,475 @@
+//@function max-width() {
+//	@return 'sssssssss';
+//}
+
+@mixin clickAction($width: auto, $height: auto) {
+  position: relative;
+  width: $width;
+  height: $height;
+  > input[type='checkbox'] {
+    position: absolute;
+    // @include ap();
+    // @include opacity(0);
+    cursor: pointer;
+    display: inline-block;
+    margin: 0px;
+    // vertical-align: middle;
+    // width: 100%;
+    // height: 100%;
+    top: -10000px;
+    width: -10000px;
+    // border: 1px solid red;
+    + div {
+      cursor: pointer;
+      // @include vendor-pref(pointer-events, none);
+      @include vendor-pref(user-select, none);
+      // @include bg-rgba(red, 0.1);
+      @include box-sizing();
+      display: inline-block;
+      // position: absolute;
+      top: 0px;
+      left: 0px;
+      // border: 1px solid #000;
+      width: 100%;
+      height: 100%;
+      min-height: 20px;
+      vertical-align: middle;
+    }
+    &:checked {
+      + div {
+        // @include bg-rgba(red, 0.2);
+        // border: 1px solid red;
+      }
+    }
+  }
+}
+@mixin BeforeAfter($value: B) {
+  @if ($value == B or $value == BA) {
+    position: relative;
+    &::before {
+      // @include float(centerMiddle);
+      @include vendor-pref(pointer-events, none);
+      content: '';
+      position: absolute;
+      display: inline-block;
+      z-index: 1;
+      min-width: 5px;
+      min-height: 5px;
+      // border: 1px solid #000;
+      // background: #fff;
+    }
+  }
+  @if ($value == A or $value == BA) {
+    &::after {
+      // @include float(centerMiddle);
+      @include vendor-pref(pointer-events, none);
+      content: '';
+      position: absolute;
+      display: inline-block;
+      z-index: 1;
+      min-width: 5px;
+      min-height: 5px;
+      // border: 1px solid #000;
+      // background: #fff;
+    }
+  }
+}
+
+@function vendor-pref($property, $value) {
+  // @return -webkit-#{$property}: $value;
+}
+/* ---------------------------------- */
+/* --------- functions (Start)------- */
+@mixin loop-code($x: 5, $type: margin, $value: 3px, $extra: '') {
+  @for $x from 1 through $x {
+    .ui-#{$type}-#{pz($x)} {
+      #{$type}: ($value * $x) unquote($extra) !important;
+    }
+    .ui-#{$type}-top-#{pz($x)} {
+      #{$type}-top: ($value * $x) unquote($extra) !important;
+    }
+    .ui-#{$type}-left-#{pz($x)} {
+      #{$type}-left: ($value * $x) unquote($extra) !important;
+    }
+    .ui-#{$type}-right-#{pz($x)} {
+      #{$type}-right: ($value * $x) unquote($extra) !important;
+    }
+    .ui-#{$type}-bottom-#{pz($x)} {
+      #{$type}-bottom: ($value * $x) unquote($extra) !important;
+    }
+  }
+}
+// @include loop-code(10, 'padding');
+// @include loop-code(10, 'margin');
+// @include loop-code(10, 'border', 1px, 'solid red');
+@mixin vendor-pref($property, $value, $ipt: false) {
+  // vendor-pref
+  @if ($ipt == false) {
+    -webkit-#{$property}: $value;
+    //		-khtml-#{$property}: $value ;
+    -moz-#{$property}: $value;
+    -ms-#{$property}: $value;
+    //		-o-#{$property}: $value ;
+    #{$property}: $value;
+  } @else {
+    -webkit-#{$property}: $value $ipt;
+    //		-khtml-#{$property}: $value $ipt;
+    -moz-#{$property}: $value $ipt;
+    -ms-#{$property}: $value $ipt;
+    //		-o-#{$property}: $value $ipt;
+    #{$property}: $value $ipt;
+  }
+}
+@mixin clear-fix() {
+  &:before,
+  &:after {
+    content: ' ';
+    display: table;
+  }
+  &:after {
+    display: block;
+    clear: both;
+    height: 1px;
+    margin-top: -1px;
+    visibility: hidden;
+  }
+  & {
+    *zoom: 1;
+  }
+}
+@function pz($i) {
+  //pack zero
+  @if ($i < 10) {
+    @return '0' + $i;
+  } @else {
+    @return $i;
+  }
+}
+@mixin bg-rgba($color: #ff0000, $alpha: 0.5) {
+  $rgba: rgba(red($color), green($color), blue($color), $alpha);
+  //@error $argb;
+  $argb: ie-hex-str($rgba);
+  background-color: $color;
+  background-color: $rgba;
+  filter: 'progid:DXImageTransform.Microsoft.gradient(enabled=false, startColorstr=#{$argb}, endColorstr=#{$argb})';
+  -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(enabled=false, startColorstr=#{$argb}, endColorstr=#{$argb})';
+}
+@mixin border-radius($radius: 50%, $ipt: false) {
+  @include vendor-pref(border-radius, $radius, $ipt);
+}
+@mixin border-radiuses($topright: 0, $bottomright: 0, $bottomleft: 0, $topleft: 0, $ipt: false) {
+  @include vendor-pref(border-top-right-radius, $topright, $ipt);
+  @include vendor-pref(border-bottom-right-radius, $bottomright, $ipt);
+  @include vendor-pref(border-bottom-left-radius, $bottomleft, $ipt);
+  @include vendor-pref(border-top-left-radius, $topleft, $ipt);
+  @include vendor-pref(background-clip, padding-box, $ipt);
+  //@include border-radiuses(10px, 25px, 10px, 18px);
+}
+@mixin box-sizing($type: border-box, $ipt: false) {
+  @include vendor-pref(box-sizing, $type, $ipt);
+}
+@mixin transition($pmrs: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s) {
+  @include vendor-pref(transition, $pmrs);
+}
+@mixin transform($pmrs) {
+  @include vendor-pref(transform, $pmrs);
+}
+@mixin transform-origin($pmrs: 0% 0%) {
+  @include vendor-pref(transform-origin, $pmrs);
+}
+$timing-00: linear;
+$timing-01: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$timing-02: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$timing-03: cubic-bezier(0.95, 0.05, 0.05, 0.95);
+$timing-04: cubic-bezier(0.23, 1, 0.32, 1); // easeOutQuint
+$timing-05: cubic-bezier(0.075, 0.82, 0.165, 1); // easeOutCirc
+$timing-06: cubic-bezier(0.15, 0.85, 0.15, 0.85);
+
+//(property, duration, timing-function, delay)
+//@include transition(all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s);
+//@include transition(all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s);
+//@include transition(all 0.8s cubic-bezier(.98,-0.41,0,1.5) 0s);
+//@include transition(all 0.8s cubic-bezier(.38,-1,.56,1.93) 0s);
+//@include transition();
+//@include transform-origin(center center);
+//@include transform-origin(left top);
+//@include transform-origin(50% 20%);
+//@include transform(rotate(45deg));
+//@include transform(translateY(-50%));
+//@include transform(scaleY(0.6));
+//@include transform(translate(50%, 50%) rotate(90deg));
+//---------- forward -------------
+//@include transition(all 0.8s cubic-bezier(0.550, 0.055, 0.675, 0.190) 0s);
+//---------- backward -------------
+//@include transition(all 0.8s cubic-bezier(0.175, 0.885, 0.320, 1) 0s);
+//@include transition(all 0.2s Stiming-02 0s);
+
+@mixin opacity($pmr: 0.5) {
+  // 0 - 1
+  $pm: $pmr * 100;
+  opacity: $pmr;
+  filter: alpha(opacity=$pm);
+  zoom: 1;
+}
+@mixin scale($pmr: 0.5) {
+  @include transform-origin(center center);
+  @include transform(scale($pmr));
+}
+@mixin rotate($pmr: 360) {
+  // @include float(centerMiddle);
+  position: absolute;
+  @include transform-origin(50% 50%);
+  top: 50%;
+  left: 50%;
+  @include transform(translate(-50%, -50%) rotate($pmr + deg));
+}
+@mixin blur($pmr: 10) {
+  @include vendor-pref(filter, blur($pmr + px));
+}
+@mixin box-shadow($pmrs: 0px 0px 16px rgba(0, 0, 0, 0.2), $ipt: false) {
+  @include vendor-pref(box-shadow, $pmrs, $ipt);
+}
+/* @include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.2)); */
+@mixin text-shadow($pmrs: 1px 1px 0px rgba(0, 0, 0, 0.3), $ipt: false) {
+  @include vendor-pref(text-shadow, $pmrs, $ipt);
+}
+/* @include text-shadow: h-shadow v-shadow blur-radius color|none|initial|inherit; */
+@mixin radial-gradient($pos: center, $type: ellipse typefarthest-corner, $color1: #e4c454, $p1: 50%, $color2: #d1aa21, $p2: 100%, $ipt: false) {
+  @if ($ipt == false) {
+    background: $color1; /* Old browsers */
+    background: -moz-radial-gradient($pos, $type, $color1 $p1, $color2 $p2); /* FF3.6-15 */
+    background: -webkit-radial-gradient($pos, $type, $color1 $p1, $color2 $p2); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient($type at $pos, $color1 $p1, $color2 $p2); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$color1}', endColorstr='#{$color2}',GradientType=1 );
+  } @else {
+    background: $color1 $ipt; /* Old browsers */
+    background: -moz-radial-gradient($pos, $type, $color1 $p1, $color2 $p2) $ipt; /* FF3.6-15 */
+    background: -webkit-radial-gradient($pos, $type, $color1 $p1, $color2 $p2) $ipt; /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient($type at $pos, $color1 $p1, $color2 $p2) $ipt; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$color1}', endColorstr='#{$color2}',GradientType=1 ) $ipt;
+  }
+  /* IE6-9 fallback on horizontal gradient */
+  // $type ellipse and circle
+  // $type (farthest-corner and closest-side) > (cover and contain)
+  // $type (farthest-side and closest-corner)
+  // @include radial-gradient(center, ellipse farthest-corner, #FF0000, 0%, #990000, 100%);
+}
+@mixin linear-gradient($color1: #e4c454, $p1: 0%, $color2: #d1aa21, $p2: 100%, $ipt: false) {
+  @if ($ipt == false) {
+    background: -moz-linear-gradient(top, $color1 $p1, $color2 $p2);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop($p1, $color1), color-stop($p2, $color2));
+    background: -webkit-linear-gradient(top, $color1 $p1, $color2 $p2);
+    background: -o-linear-gradient(top, $color1 $p1, $color2 $p2);
+    background: -ms-linear-gradient(top, $color1 $p1, $color2 $p2);
+    background: linear-gradient(to bottom, $color1 $p1, $color2 $p2);
+  } @else {
+    background: -moz-linear-gradient(top, $color1 $p1, $color2 $p2) $ipt;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop($p1, $color1), color-stop($p2, $color2)) $ipt;
+    background: -webkit-linear-gradient(top, $color1 $p1, $color2 $p2) $ipt;
+    background: -o-linear-gradient(top, $color1 $p1, $color2 $p2) $ipt;
+    background: -ms-linear-gradient(top, $color1 $p1, $color2 $p2) $ipt;
+    background: linear-gradient(to bottom, $color1 $p1, $color2 $p2) $ipt;
+  }
+  // @include linear-gradient(#FF0000, 0%, #990000, 100%);
+}
+//.AAA{
+//@include linear-gradient(#FF0000, 0%, #990000, 100%, !important);
+//}
+@mixin float($pmr: none) {
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  @include transform-origin(50% 50%);
+  @if $pmr == left {
+    left: 0%;
+  }
+  @if $pmr == center {
+    left: 50%;
+    @include transform(translateX(-50%));
+  }
+  @if $pmr == right {
+    right: 0%;
+  }
+  @if $pmr == top {
+    top: 0%;
+  }
+  @if $pmr == middle {
+    top: 50%;
+    @include transform(translateY(-50%));
+  }
+  @if $pmr == bottom {
+    bottom: 0%;
+  }
+  @if $pmr == centerTop or $pmr == topCenter {
+    top: 0%;
+    left: 50%;
+    @include transform(translateX(-50%));
+  }
+  @if $pmr == centerMiddle or $pmr == middleCenter {
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+  }
+  @if $pmr == centerBottom or $pmr == bottomCenter {
+    bottom: 0%;
+    left: 50%;
+    @include transform(translateX(-50%));
+  }
+  @if $pmr == leftTop or $pmr == topLeft {
+    top: 0%;
+    left: 0%;
+  }
+  @if $pmr == leftMiddle or $pmr == middleLeft {
+    left: 0%;
+    top: 50%;
+    @include transform(translateY(-50%));
+  }
+  @if $pmr == leftBottom or $pmr == bottomLeft {
+    bottom: 0%;
+    left: 0%;
+  }
+  @if $pmr == rightTop or $pmr == topRight {
+    right: 0%;
+    top: 0%;
+  }
+  @if $pmr == rightMiddle or $pmr == middleRight {
+    right: 0%;
+    top: 50%;
+    @include transform(translateY(-50%));
+  }
+  @if $pmr == rightBottom or $pmr == bottomRight {
+    right: 0%;
+    bottom: 0%;
+  }
+}
+@mixin truncate {
+  /*truncate*/
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* --------- functions (End)--------- */
+/* ---------------------------------- */
+
+/* --------- form (Start) ----------- */
+/* ---------------------------------- */
+input {
+  &[type='checkbox'] {
+    &.mobile-checkbox {
+      $c1: #07776e;
+      $c2: #fff;
+      $h: 22px;
+      $bdr: 1px;
+      $r: ($h / 2) + $bdr;
+      $wo: 4px;
+      // $r: 50%;
+      @include border-radius($r);
+      @include vendor-pref(appearance, none);
+      @include vendor-pref(user-select, none);
+      cursor: pointer;
+      margin: 1px;
+      position: relative;
+      overflow: hidden;
+      background-color: transparent;
+      width: ($h * 2) + ($bdr * 2) - $wo;
+      height: $h + ($bdr * 2);
+      &::before,
+      &::after {
+        // @include transition();
+        @include transition(all 0.2s $timing-01 0s);
+        @include border-radius($r);
+        position: absolute;
+        display: inline-block;
+        content: '';
+        border: $bdr solid $c1;
+        height: $h;
+        background-color: $c2;
+      }
+      &::before {
+        width: $h * 2;
+        background-color: $c1;
+        box-shadow: inset 0 0 ($h / 4) rgba(0, 0, 0, 0.2);
+      }
+      &::after {
+        left: 0%;
+        width: $h;
+        background-color: $c2;
+        @include box-shadow(0px 0px 5px rgba(0, 0, 0, 0.6));
+      }
+      &:checked {
+        &::after {
+          left: $h - $wo;
+        }
+      }
+    }
+  }
+}
+/* --------- form (End) ------------- */
+/* ---------------------------------- */
+
+.glass {
+  border: 1px solid red;
+  position: absolute;
+  left: 0px;
+  // @include blur(1.5);
+  //@include border-radiuses(10px, 25px, 10px, 18px);
+  //@include bg-rgba(#FF0000, 0.2);
+  //@include radial-gradient(center, ellipse farthest-corner, #FF0000, 0%, #990000,100%);
+  //@include float(topCenter);
+  width: 400px;
+  height: 400px;
+  overflow: auto;
+  margin: 50px;
+}
+
+@mixin resetUL {
+  /*resetUL*/
+  ul,
+  li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: inline-block;
+  }
+}
+
+@mixin ellipsis($isEllipsis: true) {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @if ($isEllipsis == true) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  } @else {
+    white-space: normal;
+    text-overflow: initial;
+    overflow: auto;
+  }
+}
+
+@mixin block-ellipsis($noOfRow: 2, $fontSize: 14px) {
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  height: $fontSize * $noOfRow;
+  // margin: 0 auto;
+  font-size: $fontSize;
+  line-height: 1;
+  -webkit-line-clamp: $noOfRow;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin dbbg($color: red, $opacity: 0.5) {
+  @include bg-rgba($color, $opacity);
+}
+
+@mixin dbbd($color: red) {
+  border: 1px dashed $color;
+}
+
+@mixin ap($value: none) {
+  @include vendor-pref(appearance, $value);
+}

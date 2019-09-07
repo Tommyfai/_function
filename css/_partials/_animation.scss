@@ -1,0 +1,264 @@
+@mixin animation-init($name: ani-default-name, $duration: 1s, $function: linear, $count: infinite) {
+  @include vendor-pref(animation-name, $name);
+  @include vendor-pref(animation-duration, $duration);
+  @include vendor-pref(animation-timing-function, $function);
+  @include vendor-pref(animation-iteration-count, $count);
+}
+@mixin keyframes($animation) {
+  @-webkit-keyframes #{$animation} {
+    @content;
+  }
+  @-moz-keyframes #{$animation} {
+    @content;
+  }
+  @-ms-keyframes #{$animation} {
+    @content;
+  }
+  @-o-keyframes #{$animation} {
+    @content;
+  }
+  @keyframes #{$animation} {
+    @content;
+  }
+}
+@mixin blinker-me() {
+  @include animation-init(blinker, 2s, linear, infinite);
+}
+.blinker-me {
+  @include animation-init(blinker, 2s, linear, infinite);
+}
+@mixin blinker-me-stop {
+  @include vendor-pref(animation-name, none);
+}
+.blinker-me-stop {
+  @include vendor-pref(animation-name, none);
+}
+@mixin blinker-frames {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@include keyframes(blinker) {
+  @include blinker-frames();
+}
+
+.fadein-me {
+  @include animation-init(fadein, 0.5s, linear, 1);
+}
+@mixin fadein-frames() {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@include keyframes(fadein) {
+  @include fadein-frames();
+}
+
+.fadeout-me {
+  @include animation-init(fadeout, 0.5s, linear, 1);
+}
+@mixin fadeout-frames() {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@include keyframes(fadeout) {
+  @include fadeout-frames();
+}
+
+.shake-me {
+  @include transform-origin(50% 10%);
+  @include animation-init(shaker, 0.5s, cubic-bezier(0.94, 0.06, 0.05, 0.95), infinite);
+}
+@mixin shaker-frames() {
+  0% {
+    @include transform(rotate(0deg));
+    opacity: 1;
+  }
+  40% {
+    @include transform(rotate(-10deg));
+    opacity: 0.5;
+  }
+  60% {
+    @include transform(rotate(10deg));
+    opacity: 0.7;
+  }
+  100% {
+    @include transform(rotate(0deg));
+    opacity: 1;
+  }
+}
+@include keyframes(shaker) {
+  @include shaker-frames();
+}
+
+.rotate-me {
+  @include animation-init(rotator, 2.5s, $timing-00, infinite);
+}
+@mixin rotator-frames() {
+  0% {
+    @include rotate(0);
+    opacity: 1;
+  }
+  25% {
+    @include rotate(-90);
+    opacity: 0.75;
+  }
+  50% {
+    @include rotate(-180);
+    opacity: 0.55;
+  }
+  75% {
+    @include rotate(-270);
+    opacity: 0.75;
+  }
+  100% {
+    @include rotate(-360);
+    opacity: 1;
+  }
+}
+@include keyframes(rotator) {
+  @include rotator-frames();
+}
+
+@mixin placeholder($color1: #e4c454) {
+  &::-webkit-input-placeholder {
+    color: $color1;
+  }
+  &::-moz-placeholder {
+    color: $color1;
+  }
+  &:-ms-input-placeholder {
+    color: $color1;
+  }
+  &:-moz-placeholder {
+    color: $color1;
+  }
+}
+
+.float-me {
+  margin-left: 30px;
+  margin-top: 5px;
+  @include transform-origin(50% 50%);
+  transform: translatey(0px);
+  @include animation-init(floator, 6s, ease-in-out, infinite);
+}
+
+@mixin float-frames() {
+  0% {
+    @include transform(translate(0px, 0px) scale(1));
+    @include opacity(1);
+  }
+  65% {
+    @include transform(translate(-20px, -10px) scale(0.95));
+    @include opacity(0.5);
+  }
+  100% {
+    @include transform(translate(0px, 0px) scale(1));
+    @include opacity(1);
+  }
+}
+@-webkit-keyframes floator {
+  @include float-frames();
+}
+@-moz-keyframes floator {
+  @include float-frames();
+}
+@-ms-keyframes floator {
+  @include float-frames();
+}
+@-o-keyframes floator {
+  @include float-frames();
+}
+@keyframes floator {
+  @include float-frames();
+}
+
+.floating {
+  float: left;
+  -webkit-animation-name: Floatingx;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -moz-animation-name: Floating;
+  -moz-animation-duration: 3s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: ease-in-out;
+  margin-left: 30px;
+  margin-top: 5px;
+}
+
+@-webkit-keyframes Floatingx {
+  from {
+    -webkit-transform: translate(0, 0px);
+  }
+  65% {
+    -webkit-transform: translate(0, 15px);
+  }
+  to {
+    -webkit-transform: translate(0, -0px);
+  }
+}
+
+@-moz-keyframes Floating {
+  from {
+    -moz-transform: translate(0, 0px);
+  }
+  65% {
+    -moz-transform: translate(0, 15px);
+  }
+  to {
+    -moz-transform: translate(0, -0px);
+  }
+}
+
+.scaling {
+  float: left;
+  -webkit-animation-name: scalex;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -moz-animation-name: scale;
+  -moz-animation-duration: 3s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes scalex {
+  from {
+    -webkit-transform: scale(0.9);
+  }
+  65% {
+    -webkit-transform: scale(1);
+  }
+  to {
+    -webkit-transform: scale(0.9);
+  }
+}
+
+@-moz-keyframes scale {
+  from {
+    -moz-transform: scale(0.9);
+  }
+  65% {
+    -moz-transform: scale(1);
+  }
+  to {
+    -moz-transform: scale(0.9);
+  }
+}

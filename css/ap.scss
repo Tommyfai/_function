@@ -1,0 +1,95 @@
+@import '_partials/index';
+
+body {
+  border: 10px solid #eee;
+  padding: 0px;
+  margin: 0px;
+}
+
+.checkbox {
+  @include clickAction();
+  $h: 50px;
+  $pad: 5px;
+  $cw: 30px;
+  // border: 1px solid #000;
+  // display: inline-block;
+  display: block;
+  > input {
+    + div {
+      border: 1px solid blue;
+      @include BeforeAfter();
+      // @include box-sizing();
+      padding: $pad;
+      padding-left: $cw + $pad;
+      height: 100%;
+      &::before {
+        width: $cw;
+        height: 100%;
+        border: 1px solid #000;
+        top: 0px;
+        left: 0px;
+      }
+    }
+    &:checked {
+      + div {
+        &::before {
+          border: 1px solid red;
+          height: 100%;
+          // width: 28px;
+        }
+      }
+    }
+  }
+}
+
+.clickable-icon {
+  display: inline-block;
+  $h: 150px;
+  // border: 1px solid #000;
+  @include clickAction($h, $h);
+  > input {
+    + div {
+      color: #fff;
+      @include BeforeAfter(BA);
+      &::before,
+      &::after {
+        @include transition(all 1.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s);
+        // display: table-cell;
+        // text-align: center;
+        // vertical-align: middle;
+      }
+      &::after {
+        content: '';
+        background-color: red;
+        height: 100%;
+        width: 100%;
+      }
+      &::before {
+        @include opacity(0.1);
+        // z-index: 1;
+      }
+      &::after {
+        @include opacity(0.5);
+        // z-index: 2;
+      }
+    }
+    &:checked {
+      + div {
+        &::before {
+          content: '';
+          background-color: blue;
+          height: 100%;
+          width: 100%;
+        }
+        &::before {
+          @include opacity(0.5);
+          // z-index: 2;
+        }
+        &::after {
+          @include opacity(0.1);
+          // z-index: 1;
+        }
+      }
+    }
+  }
+}

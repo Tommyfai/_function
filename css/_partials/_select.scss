@@ -1,0 +1,148 @@
+.ww-select {
+  $pad: 10px;
+  $bc: #dfdfdf;
+  $bw: 1px;
+  $mh: 250px;
+  $fontSize: 14px;
+  $h: 34px;
+  @include vendor-pref(user-select, none);
+  @include vendor-pref(outline, none);
+  // @include vendor-pref(pointer-events, none);
+  margin: $pad * 5;
+  position: relative;
+  font-size: $fontSize;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid $bc;
+  display: block;
+  height: $h;
+  &::after {
+    // right arrow
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    border: solid #333;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    @include transform(rotate(45deg));
+    top: $h * 0.3;
+    right: $h * 0.4;
+    z-index: 2;
+  }
+  > .mask {
+    // hack for click action, cancel the mouse up action
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+  }
+  > label.option {
+    cursor: pointer;
+    display: block;
+    line-height: 1em;
+    // @include vendor-pref(pointer-events, none);
+    > span {
+      // @include transition();
+      // @include transition(max-height 0.5s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s);
+      @include transition(max-height 0.5s linear 0s);
+      font-size: 0px;
+      max-height: $mh * 0;
+      padding: 0px;
+      display: block;
+      overflow: hidden;
+      line-height: 1em;
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+    input[type='radio'] {
+      position: absolute;
+      margin: $pad * 0.1;
+      top: -10000000px;
+      left: -10000000px;
+      &:checked {
+        + span {
+          color: #000;
+          background-color: #f5f5f5;
+          font-size: $fontSize;
+          // border: $bw solid $bc;
+          padding: $pad $pad;
+          max-height: $mh;
+          @include ellipsis();
+          padding-right: 50px;
+        }
+      }
+    }
+  }
+  &:focus {
+    // clicked action
+    border: 0px solid $bc;
+    z-index: 999999999;
+    > .mask {
+      height: 1px;
+      top: -1px;
+    }
+    > label.option {
+      border-left: $bw solid $bc;
+      border-bottom: $bw solid $bc;
+      border-right: $bw solid $bc;
+      &:first-of-type {
+        border-top: $bw solid $bc;
+      }
+      > span {
+        background-color: #fff;
+        font-size: $fontSize;
+        max-height: $mh;
+        padding: $pad $pad;
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+      > input[type='radio'] {
+        &:checked {
+          + span {
+            color: #fff;
+            background-color: #666;
+            @include ellipsis(none);
+          }
+        }
+      }
+    }
+    &::after {
+      // right arrow
+      top: $h * 0.4;
+      @include transform(rotate(225deg));
+    }
+    > label.option {
+      // for selected first option
+      &:nth-of-type(1) {
+        input[type='radio'] {
+          &:checked {
+            + span {
+              &::after {
+                // right arrow
+                content: ' ';
+                display: inline-block;
+                position: absolute;
+                border: solid #fff;
+                border-width: 0 3px 3px 0;
+                display: inline-block;
+                padding: 3px;
+                @include transform(rotate(225deg));
+                top: $h * 0.4;
+                right: $h * 0.4;
+                z-index: 3;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
