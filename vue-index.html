@@ -20,10 +20,22 @@
 
     <div id="app">
       <button v-on:click="btn()">button</button>
-
       {{ message }}
+
+      <!-- <button-a></button-a> -->
+
+      <button-counter v-for="product in products" v-bind:key="product.id" v-bind:product="product"></button-counter>
+
+      <!-- <button-counter></button-counter> -->
     </div>
 
+    <div id="root">
+      <products-list v-bind:products="products"></products-list>
+      <button v-on:click="sorting('name')">Sort Name</button>
+      <button v-on:click="sorting('price')">Sort Price</button>
+    </div>
+    <script src="./js/components.js"></script>
     <script src="./js/vue-index.js"></script>
+    <script src="./js/load-products.js"></script>
   </body>
 </html>

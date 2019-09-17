@@ -661,3 +661,11 @@ body a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.buttonA {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  margin: 10px;
+}
+/*# sourceMappingURL=website.css.map */

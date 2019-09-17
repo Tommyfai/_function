@@ -1,0 +1,16 @@
+﻿{
+  "products": [
+    {
+      "name": "WMay 1",
+      "price": "type 3"
+    },
+    {
+      "name": "AMay 2",
+      "price": "type 2"
+    },
+    {
+      "name": "BMay 3",
+      "price": "type 1"
+    }
+  ]
+}
