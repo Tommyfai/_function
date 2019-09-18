@@ -56,7 +56,7 @@ new Vue({
       this.animaltypes = _data.AnimalTypes;
       this.exhibits = _data.Exhibits;
       console.log(_data.AnimalTypes[0].AnimalType + '==')
-    }.bind(this));
+    }.bind(this)); +
   }
 
 })
