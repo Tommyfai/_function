@@ -1,0 +1,56 @@
+@mixin css-arrow($direction: up, $width: 50px, $height: 20px, $color: #444) {
+  // @include css-arrow(up, 50px, 20px, #ccc);
+  &::before {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    @include float(centerMiddle);
+    font-size: 0px;
+    width: 0px;
+    height: 0px;
+    margin: 0px;
+    @if ($direction == up) {
+      border-left: ($width / 2) solid transparent;
+      border-right: ($width / 2) solid transparent;
+      border-bottom: $height solid $color;
+    }
+    @if ($direction == down) {
+      border-left: ($width / 2) solid transparent;
+      border-right: ($width / 2) solid transparent;
+      border-top: $height solid $color;
+    }
+    @if ($direction == right) {
+      border-top: ($width / 2) solid transparent;
+      border-bottom: ($width / 2) solid transparent;
+      border-left: $height solid $color;
+    }
+    @if ($direction == left) {
+      border-top: ($width / 2) solid transparent;
+      border-bottom: ($width / 2) solid transparent;
+      border-right: $height solid $color;
+    }
+  }
+}
+
+@mixin icon-cross($width: 20px, $size: 2px, $color: #000) {
+  @include icon-cross(30px, 2px, #333);
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    height: $size !important;
+    width: $width !important;
+    @include border-radius(1px);
+    background-color: $color;
+    @include float(centerMiddle);
+    @include opacity(1);
+    @include transition(all 0.2s linear 0.5s);
+  }
+  &::before {
+    @include rotate(45);
+  }
+  &::after {
+    @include rotate(135);
+  }
+}
