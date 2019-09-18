@@ -12,11 +12,7 @@
   </head>
 
   <body>
-    <div class="block">
-      asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
-      asdf asdf asdf asdf asdf as df asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
-      asdf asdf asdf asdf
-    </div>
+    <div class="block">asdf asdf asdf asdf</div>
 
     <div id="app">
       <button v-on:click="btn()">button</button>
@@ -24,18 +20,18 @@
 
       <!-- <button-a></button-a> -->
 
-      <button-counter v-for="product in products" v-bind:key="product.id" v-bind:product="product"></button-counter>
+      <!-- <button-counter v-for="product in products" v-bind:key="product.id" v-bind:product="product"></button-counter> -->
 
       <!-- <button-counter></button-counter> -->
     </div>
 
     <div id="root">
-      <products-list v-bind:products="products"></products-list>
+      <exhibit-list v-bind:animaltypes="animaltypes" v-bind:exhibits="exhibits"></exhibit-list>
       <button v-on:click="sorting('name')">Sort Name</button>
       <button v-on:click="sorting('price')">Sort Price</button>
     </div>
     <script src="./js/components.js"></script>
     <script src="./js/vue-index.js"></script>
-    <script src="./js/load-products.js"></script>
+    <script src="./js/load-exhibits.js"></script>
   </body>
 </html>

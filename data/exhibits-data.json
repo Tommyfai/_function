@@ -12,7 +12,7 @@
       "科": "鷹科",
       "Family": "ACCIPITRIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "大型猛禽，身體長約85厘米，翼展可達至2米。在香港主要見於海岸，偶見於大型水塘。",
       "Description": "A large sized raptor measures about 85 cm in length with wingspan reaching as long as 2m. Occurs along seacoasts and occasionally at large reservoirs.",
       "Photographer": "BCD"
@@ -29,7 +29,7 @@
       "科": "花蜜鳥科",
       "Family": "NECTARINIIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "雄鳥頭部呈金屬藍綠色，喉和上胸為深緋紅色。雌鳥和雛鳥上體綠色，下身偏黃色。",
       "Description": "The male has a metallic blue-green head, dark crimson throat and upper breast. The female and immature have green upperparts and yellowish underparts",
       "Photographer": "BCD"
@@ -46,7 +46,7 @@
       "科": "雀鵰科",
       "Family": "POMACENTRIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "與海葵共生。單獨生活或群體由一對雌雄成魚和數條尚未性成熟的雄魚及幼魚組成。",
       "Description": "Lives in association with sea anemone. Can occur singly, or in groups made up of one female-male breeding pairs with a varying number of non-active males and juveniles.",
       "Photographer": "Felix Chan"
@@ -63,7 +63,7 @@
       "科": "箱魨科",
       "Family": "OSTRACIIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "游泳能力弱，但能藉海流的漂送而到遠處。以底棲動物如海鞘、海綿及軟珊瑚等為生，但也有以藻類為主食。",
       "Description": "Poor swimmer that mainly goes with the current.  Mainly feed on benthic organisations, such as sea squirt, sea sponge or soft corals.  Some may also feed on algae.",
       "Photographer": "Felix Chan"
@@ -80,7 +80,7 @@
       "科": "雀鵰科",
       "Family": "POMACENTRIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "身體藍灰色，常以群體形式出現，可以由超逾一百條組成。以浮游生物為主要食物。",
       "Description": "Bluish grey body.  Can occur in large groups comprising more than 100 individuals. Feeds on zooplankton.",
       "Photographer": "Felix Chan"
@@ -97,7 +97,7 @@
       "科": "背眼蝦虎魚科",
       "Family": "OXUDERCIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "身上有螢光藍色小點點綴，每當潮退時，牠們會在泥灘上尋找藻類和碎屑等食物。",
       "Description": "It has distinctive blue spots on its body. At low tide, they search for food such as algae and debris on mudflat.",
       "Photographer": "Felix Chan@BCD"
@@ -114,7 +114,7 @@
       "科": "游蛇科",
       "Family": "COLUBRIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "體型幼長，全長約70-90厘米。主要棲息於灌木林及林地。樹棲品種，但常見於地面爬行。夜行性。",
       "Description": "Long and slender, measuring about 70-90cm. Mainly inhabits shrubland and woodland. An arboreal species but often found crawling on the ground. Nocturnal.",
       "Photographer": "Ringo Wong and Paul Choi@BCD"
@@ -131,7 +131,7 @@
       "科": "蠵龜科",
       "Family": "CHELONIIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "由於其體內的脂肪透著淺綠色，所以被稱為綠海龜。是唯有在本地有繁殖紀錄的海龜品種。",
       "Description": "Named after the greenish colour of its body fat. It is the only sea turtle species that breeds in Hong Kong.",
       "Photographer": "Felix Chan"
@@ -148,7 +148,7 @@
       "科": "蛙科",
       "Family": "RANIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "大綠蛙是蛙科兩棲類動物，廣泛分布於香港的山溪。",
       "Description": "Green Cascade Frog is an amphibian in the Family Ranidae.  It is widely distributed in mountain streams in Hong Kong.",
       "Photographer": "Ringo Wong@BCD"
@@ -165,7 +165,7 @@
       "科": "鳳蝶科",
       "Family": "PAPILIONIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "幼蟲食用印度馬兜鈴；展翅約 105 至 140 毫米；雌雄二型；三月至十一月可見。",
       "Description": "Caterpillars feed on Aristolochia tagala.Wingspan ranges from 105 to 140mm. Sexual dimorphism. They occur from March to November.",
       "Photographer": "BCD"
@@ -182,7 +182,7 @@
       "科": "蜻科",
       "Family": "LIBELLULIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "香港體型最細小的蜻蜓 ，亦是世界上其中一種最細小的蜻蜓品種。雄蟲呈鮮紅色，雌蟲則主要是黃褐色。",
       "Description": "This is the smallest Hong Kong dragonfly and one of the smallest species in the world. The males are brilliant red, while the females are predominantly yellowish brown.",
       "Photographer": "BCD"
@@ -199,7 +199,7 @@
       "科": "蝙蝠科",
       "Family": "VESPERTILIONIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "市區內常見的小型蝙蝠；背部毛色為灰棕色，腹部顏色較淺；翼、耳及吻部為褐色。",
       "Description": "A very common small-sized bat in urban areas; the pelage is greyish brown above, and paler below; wings, ears and muzzle are brown.",
       "Photographer": "BCD"
@@ -216,7 +216,7 @@
       "科": "鹿科",
       "Family": "CERVIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "背部毛色為栗褐至黃褐色，中線附近顏色較深，腹部米白色；面部狹長；雄麂長有一對粗角；雌麂無角但有一束鬃毛和小骨節。",
       "Description": "The pelage is chestnut brown to yellowish brown above, somewhat darker along the midline and whitish below ; the face is long; males have rough antlers; in the females, tufts of bristly hair and small bony knobs replace the horns",
       "Photographer": "BCD"
@@ -233,7 +233,7 @@
       "科": "穿山甲科",
       "Family": "MANIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "全身披滿鱗甲的食蟻專家；鱗甲為灰棕至灰色，腹部為淺棕色。沒有牙齒；舌頭特長，可伸長20厘米。",
       "Description": "Ant eating specialist covered with overlapping scales; scale is greyish brown to grey; belly is pale brown. Absence of teeth with sticky tongue that can extend as long as 20cm.",
       "Photographer": "Wing Tsui@BCD"
@@ -250,7 +250,7 @@
       "科": "海豚科",
       "Family": "DELPHINIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "海豚能發出高頻率聲音作為回聲定位信號。回聲定位可以用作找尋獵物如魚類。在接收到反射的聲音信號後，海豚會接近目標及使用牙齒獵食。",
       "Description": "Dolphins can produce high frequency sounds known to function as echolocation signals.  Echolocation can be used for finding preys such as fishes.  Upon receiving reflected sound signals, a dolphin will approach the target and use its teeth to capture the fish.",
       "Photographer": "AFCD"
@@ -267,7 +267,7 @@
       "科": "靈貓科",
       "Family": "VIVERRIDAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "介紹": "體型較大及長的靈貓科動物(體長50-76cm)。尾較長，但短於其體長，基部有麝香腺。",
       "Description": "A large civet with elongated body (body length 50 to 76cm). Tail slender, shorter than body length. Musk gland present at base of tail.",
       "Photographer": "King Leung@BCD"
@@ -284,7 +284,7 @@
       "科": "金縷梅科",
       "Family": "HAMAMELIDACEAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "植物種類": "被子植物 (雙子葉植物)",
       "Plant Type": "Angiosperms (dicotyledons)",
       "原生/外來": "原生",
@@ -304,7 +304,7 @@
       "科": "野牡丹科",
       "Family": "MELASTOMATACEAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "植物種類": "被子植物 (雙子葉植物)",
       "Plant Type": "Angiosperms (dicotyledons)",
       "原生/外來": "原生",
@@ -324,7 +324,7 @@
       "科": "鳶尾科",
       "Family": "IRIDACEAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "植物種類": "被子植物 (單子葉植物)",
       "Plant Type": "Angiosperms (monocotyledons)",
       "原生/外來": "原生",
@@ -344,7 +344,7 @@
       "科": "山茶科",
       "Family": "THEACEAE",
       "展品地點": "海報",
-      " Location": "Key visual",
+      "Location": "Key visual",
       "植物種類": "被子植物 (雙子葉植物)",
       "Plant Type": "Angiosperms (dicotyledons)",
       "原生/外來": "原生",
@@ -356,23 +356,23 @@
   "AnimalTypes": [
     {
       "物種分類": "哺乳類",
-      "AnimalType": "哺乳類"
+      "Category": "Mammal"
     },
     {
       "物種分類": "兩棲及爬行類",
-      "AnimalType": "兩棲及爬行類"
+      "Category": "Herptile"
     },
     {
       "物種分類": "魚類",
-      "AnimalType": "魚類"
+      "Category": "Fish"
     },
     {
       "物種分類": "鳥類",
-      "AnimalType": "鳥類"
+      "Category": "Bird"
     },
     {
       "物種分類": "昆蟲",
-      "AnimalType": "昆蟲"
+      "Category": "Insect"
     }
   ]
 }
