@@ -1,15 +1,19 @@
 Vue.component('exhibit-list', {
-  template: `<div class='list-x'>
+
+  template: `<div class='list-x'>  
     <ul v-for='animaltype in animaltypes'>
+    {{lan}}
       <li> {{animaltype.Category}} {{animaltype.物種分類}}  
         <ul v-for='exhibit in exhibits' >
-          <li v-if="animaltype.Category === exhibit.Category" >{{exhibit["English Common Name"]}}  {{exhibit.中文名稱}} </li> 
+          <li v-if="animaltype.Category === exhibit.Category" >          
+          {{exhibit["Location"]}}
+          </li> 
         </ul>
       </li>
     </ul>
   </div>
   `,
-  props: ['animaltypes', 'exhibits']
+  props: ['animaltypes', 'exhibits', 'lan']
 })
 function sortFunction(a, b) {
   if (a[0] === b[0]) {
@@ -23,11 +27,26 @@ new Vue({
   data: {
     active: true,
     animaltypes: [],
-    exhibits: []
+    exhibits: [],
+    attrNames: [],
+    lang: 'tc'
+
   },
   components: {},
   methods: {
-    sorting: function(_type) {
+    setLang: function (_lang) {
+      this.lang = _lang;
+    },
+    getAttrByLang: function (_name) {
+      this.attrNames.forEach(element => {
+        if (element.en.toLowerCase() == _name) {
+          console.log(element[this.lang]);
+          return element[this.lang];
+        }
+      });
+    },
+    sorting: function (_type) {
+      alert(this.lang);
       function _sortType(a, b) {
         if (a.Category < b.Category) return -1
         if (a.Category > b.Category) return 1
@@ -45,10 +64,11 @@ new Vue({
   mounted() {
     $.getJSON(
       '../data/exhibits-data.json',
-      function(_data) {
+      function (_data) {
         this.animaltypes = _data.AnimalTypes
         this.exhibits = _data.Exhibits
-        console.log(_data.AnimalTypes[0].AnimalType + '==')
+        this.attrNames = _data.attrNameByLang
+        console.log(_data.attrNameByLang[0].tc + '==')
       }.bind(this)
     )
   }

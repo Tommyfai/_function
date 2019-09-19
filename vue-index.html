@@ -26,9 +26,12 @@
     </div>
 
     <div id="root">
-      <exhibit-list v-bind:animaltypes="animaltypes" v-bind:exhibits="exhibits"></exhibit-list>
+      <exhibit-list v-bind:animaltypes="animaltypes" v-bind:exhibits="exhibits" v-bind:lan="lang"></exhibit-list>
       <button v-on:click="sorting('name')">Sort Name</button>
       <button v-on:click="sorting('price')">Sort Price</button>
+      <button v-on:click="getAttrByLang('location')">getAttrName</button>
+      <button v-on:click="setLang('en')">en</button>
+      <button v-on:click="setLang('tc')">tc</button>
     </div>
     <script src="./js/components.js"></script>
     <script src="./js/vue-index.js"></script>

@@ -374,5 +374,17 @@
       "物種分類": "昆蟲",
       "Category": "Insect"
     }
+  ],
+  "attrNameByLang": [
+    {
+      "sc": "展品地點sc",
+      "tc": "展品地點",
+      "en": "Location"
+    },
+    {
+      "sc": "介紹sc",
+      "tc": "介紹",
+      "en": "Description"
+    }
   ]
 }
