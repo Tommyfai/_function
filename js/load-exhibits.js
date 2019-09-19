@@ -19,7 +19,7 @@ function sortFunction(a, b) {
   }
 }
 new Vue({
-  el: '#root',
+  el: '#roots',
   data: {
     active: true,
     animaltypes: [],
