@@ -28,8 +28,8 @@
     <div id="root">
       <exhibit-list v-bind:_animaltypes="animaltypes" v-bind:_result="result" v-bind:_lan="lang"></exhibit-list>
       <div>
-        <button v-on:click="sorting('name')">Sort Name</button>
-        <button v-on:click="sorting('price')">Sort Price</button>
+        <button v-on:click="sorting('English Common Name')">Sort English Common Name</button>
+        <button v-on:click="sorting('Exhibit Code')">Sort Exhibit Code</button>
       </div>
       <div>
         <button v-on:click="setLang('en')">en</button>

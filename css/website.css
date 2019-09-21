@@ -668,4 +668,40 @@ body a {
   border: 1px solid #000;
   margin: 10px;
 }
+
+.fn-grid {
+  font-size: 0;
+  display: table;
+  width: 100%;
+}
+
+.fn-grid .row {
+  font-size: 0;
+  vertical-align: top;
+  display: table-row;
+}
+
+.fn-grid .row:nth-of-type(odd) {
+  background-color: #f5f5f5;
+}
+
+.fn-grid .row:nth-of-type(even) {
+  background-color: #fff;
+}
+
+.fn-grid .row .cell {
+  font-size: 1rem;
+  vertical-align: top;
+  display: inline-block;
+  display: table-cell;
+  padding: 5px;
+}
+
+.fn-grid.cols-04 .cell {
+  width: 25%;
+}
+
+.fn-grid.cols-05 .cell {
+  width: 20%;
+}
 /*# sourceMappingURL=website.css.map */

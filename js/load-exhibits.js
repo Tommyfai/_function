@@ -1,13 +1,63 @@
 Vue.component('exhibit-list', {
-  template: `<div class='list-x'>  
-    <ul v-for='exhibit in _result' >
-      <li>
-        {{exhibit["Exhibit Code"]}}
-      </li> 
-    </ul>
+  template: `<div class='fn-grid' >  
+    <template v-for='exhibit in _result'>
+      <div class="row">
+        <div class="cell" :style="{width: '50px'}" >
+          {{exhibit["Exhibit Code"]}}
+        </div> 
+        <div class="cell" :style="{width: '50px'}" >
+          {{exhibit["Taxa Code"]}}
+        </div> 
+        <div class="cell" :style="{width: '100px'}" >
+          {{exhibit["Category"]}}
+        </div> 
+        <div class="cell">
+          {{exhibit["English Common Name"]}}
+        </div>        
+      </div>      
+    </template>
+    <div class="row" >
+        <div class="cell" :style="{width: '50px'}" >        
+          <button v-on:click="sorting('Exhibit Code', dir)">Sort</button>
+        </div> 
+        <div class="cell" :style="{width: '50px'}" >
+          <button v-on:click="sorting('Taxa Code', dir)">Sort</button>
+        </div> 
+        <div class="cell" :style="{width: '100px'}" >
+          <button v-on:click="sorting('Category', dir)">Sort</button>
+        </div> 
+        <div class="cell">
+          <button v-on:click="sorting('English Common Name', dir)">Sort</button>
+        </div>        
+      </div>
   </div>
   `,
-  props: ['_animaltypes', '_result', '_lan']
+  data: function () {
+    return {
+      sortType: '',
+      dir: 1
+    }
+  },
+  props: ['_animaltypes', '_result', '_lan'],
+  methods: {
+    sorting: function (_type) {
+      var _dir = this.dir;
+      // console.log(_type + '___' + this.sortType);
+      if (_type == this.sortType) {
+        _dir = (_dir * -1)
+        this.dir = _dir;
+      } else {
+        this.sortType = _type;
+        this.dir = 1;
+        _dir = 1;
+      }
+      this._result.sort(function (a, b) {
+        if (a[_type] < b[_type]) return (_dir * -1)
+        if (a[_type] > b[_type]) return _dir
+        return 0
+      })
+    }
+  },
 })
 
 function sortFunction(a, b) {
@@ -17,6 +67,7 @@ function sortFunction(a, b) {
     return a[0] < b[0] ? -1 : 1
   }
 }
+
 new Vue({
   el: '#root',
   data: {
@@ -25,8 +76,9 @@ new Vue({
     exhibits: [],
     attrNames: [],
     result: [],
-    lang: 'tc'
-
+    lang: 'tc',
+    sortType: '',
+    dir: 1
   },
   components: {},
   methods: {
@@ -59,18 +111,19 @@ new Vue({
       });
     },
     sorting: function (_type) {
-      function _sortType(a, b) {
-        if (a.Category < b.Category) return -1
-        if (a.Category > b.Category) return 1
-        return 0
+      var _dir = this.dir;
+      console.log(_type + '___' + this.sortType);
+      if (_type == this.sortType) {
+        _dir = (_dir * -1)
+        this.dir = _dir;
+      } else {
+        this.sortType = _type;
       }
-      function _sortPrice(a, b) {
-        if (a.物種分類 < b.物種分類) return -1
-        if (a.物種分類 > b.物種分類) return 1
+      this.result.sort(function (a, b) {
+        if (a[_type] < b[_type]) return (_dir * -1)
+        if (a[_type] > b[_type]) return _dir
         return 0
-      }
-      if (_type === 'name') this.animaltypes.sort(_sortType)
-      if (_type === 'price') this.animaltypes.sort(_sortPrice)
+      })
     }
   },
   mounted() {
