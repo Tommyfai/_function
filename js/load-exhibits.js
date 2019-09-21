@@ -128,7 +128,7 @@ new Vue({
   },
   mounted() {
     $.getJSON(
-      '../data/exhibits-data.json',
+      'data/exhibits-data.json',
       function (_data) {
         this.animaltypes = _data.AnimalTypes
         this.exhibits = _data.Exhibits
