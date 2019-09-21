@@ -694,7 +694,7 @@ body a {
   vertical-align: top;
   display: inline-block;
   display: table-cell;
-  padding: 5px;
+  padding: 10px;
 }
 
 .fn-grid.cols-04 .cell {

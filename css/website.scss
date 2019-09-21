@@ -41,7 +41,6 @@ body {
 .fn-grid {
   font-size: 0;
   display: table;
-  // border: 1px solid #000;
   width: 100%;
   .row {
     font-size: 0;
@@ -54,14 +53,11 @@ body {
       background-color: #fff;
     }
     .cell {
-      // @include box-sizing();
       font-size: 1rem;
       vertical-align: top;
       display: inline-block;
-      // border: 1px solid red;
       display: table-cell;
-      padding: 5px;
-      // @include dbbg();
+      padding: 10px;
     }
   }
   &.cols-04 {
