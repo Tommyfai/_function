@@ -378,12 +378,12 @@
   "attrNameByLang": [
     {
       "sc": "展品地點sc",
-      "tc": "展品地點",
+      "tc": "展品地點tc",
       "en": "Location"
     },
     {
       "sc": "介紹sc",
-      "tc": "介紹",
+      "tc": "介紹tc",
       "en": "Description"
     }
   ]

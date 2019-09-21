@@ -26,12 +26,22 @@
     </div>
 
     <div id="root">
-      <exhibit-list v-bind:animaltypes="animaltypes" v-bind:exhibits="exhibits" v-bind:lan="lang"></exhibit-list>
-      <button v-on:click="sorting('name')">Sort Name</button>
-      <button v-on:click="sorting('price')">Sort Price</button>
-      <button v-on:click="getAttrByLang('location')">getAttrName</button>
-      <button v-on:click="setLang('en')">en</button>
-      <button v-on:click="setLang('tc')">tc</button>
+      <exhibit-list v-bind:_animaltypes="animaltypes" v-bind:_result="result" v-bind:_lan="lang"></exhibit-list>
+      <div>
+        <button v-on:click="sorting('name')">Sort Name</button>
+        <button v-on:click="sorting('price')">Sort Price</button>
+      </div>
+      <div>
+        <button v-on:click="setLang('en')">en</button>
+        <button v-on:click="setLang('tc')">tc</button>
+        <button v-on:click="setLang('sc')">sc</button>
+        <button v-on:click="getAttrByLang('location')">getAttrName</button>
+      </div>
+      <div>
+        <button v-on:click="searchData('reset')">Reset</button>
+        <button v-on:click="searchData('all')">Show All</button>
+        <button v-on:click="searchData('animaltype','Herptile')">Search Herptile</button>
+      </div>
     </div>
     <script src="./js/components.js"></script>
     <script src="./js/vue-index.js"></script>

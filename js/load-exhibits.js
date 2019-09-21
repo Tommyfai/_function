@@ -1,20 +1,15 @@
 Vue.component('exhibit-list', {
-
   template: `<div class='list-x'>  
-    <ul v-for='animaltype in animaltypes'>
-    {{lan}}
-      <li> {{animaltype.Category}} {{animaltype.物種分類}}  
-        <ul v-for='exhibit in exhibits' >
-          <li v-if="animaltype.Category === exhibit.Category" >          
-          {{exhibit["Location"]}}
-          </li> 
-        </ul>
-      </li>
+    <ul v-for='exhibit in _result' >
+      <li>
+        {{exhibit["Exhibit Code"]}}
+      </li> 
     </ul>
   </div>
   `,
-  props: ['animaltypes', 'exhibits', 'lan']
+  props: ['_animaltypes', '_result', '_lan']
 })
+
 function sortFunction(a, b) {
   if (a[0] === b[0]) {
     return 0
@@ -29,11 +24,29 @@ new Vue({
     animaltypes: [],
     exhibits: [],
     attrNames: [],
+    result: [],
     lang: 'tc'
 
   },
   components: {},
   methods: {
+    searchData: function (_type, _value) {
+      this.result = [];
+      if (_type == 'all') {
+        this.result = this.exhibits;
+      } else {
+        this.exhibits.forEach(element => {
+          if (element.Category == _value) {
+            this.result.push(element);
+          }
+        })
+      }
+    },
+    removeData: function (_num) {
+      console.log(_num);
+      this.exhibits.splice(_num - 1, 1);
+      this.animaltypes.splice(_num - 1, 1);
+    },
     setLang: function (_lang) {
       this.lang = _lang;
     },
@@ -46,7 +59,6 @@ new Vue({
       });
     },
     sorting: function (_type) {
-      alert(this.lang);
       function _sortType(a, b) {
         if (a.Category < b.Category) return -1
         if (a.Category > b.Category) return 1
@@ -67,9 +79,22 @@ new Vue({
       function (_data) {
         this.animaltypes = _data.AnimalTypes
         this.exhibits = _data.Exhibits
+        // this.result = _data.Exhibits
         this.attrNames = _data.attrNameByLang
         console.log(_data.attrNameByLang[0].tc + '==')
       }.bind(this)
     )
   }
 })
+
+/*
+<ul v-for='animaltype in _animaltypes'>
+  <li> {{animaltype.Category}} {{animaltype.物種分類}}
+    <ul v-for='exhibit in _result' >
+      <li v-if="animaltype.Category === exhibit.Category" >
+        {{exhibit["Exhibit Code"]}}
+      </li>
+    </ul>
+  </li>
+</ul>
+*/
