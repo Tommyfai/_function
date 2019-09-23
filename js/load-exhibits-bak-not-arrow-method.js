@@ -1,5 +1,5 @@
 Vue.component('exhibit-list', {
-  template: `<div class='fn-grid' >  
+  template: `<div class='fn-grid' ><div style="font-size:22px">d</div>
     <template v-for='exhibit in _result'>
       <div class="row">
         <div class="cell" :style="{width: '50px'}" >
@@ -82,16 +82,32 @@ new Vue({
   },
   components: {},
   methods: {
+    resultPush: function(_item) {
+      this.result.push(_item)
+    },
     searchData: function(_type, _value) {
       this.result = []
       if (_type == 'all') {
         this.result = this.exhibits
       } else {
-        this.exhibits.forEach(element => {
-          if (element.Category == _value) {
-            this.result.push(element)
+        alert(1)
+        var self = this
+        this.exhibits.forEach(function(_item) {
+          if (_item.Category == _value) {
+            self.resultPush(_item)
           }
         })
+        // function loopElement(element) {
+        //   console.log(element.Category)
+        //   if (element.Category == _value) {
+        //     this.result.push(element)
+        //   }
+        // }
+        // this.exhibits.forEach(element => {
+        //   if (element.Category == _value) {
+        //     this.result.push(element)
+        //   }
+        // })
       }
     },
     removeData: function(_num) {
@@ -102,13 +118,32 @@ new Vue({
     setLang: function(_lang) {
       this.lang = _lang
     },
+    returnLang: function(_item) {
+      console.log(_item[this.lang])
+      return _item[this.lang]
+    },
     getAttrByLang: function(_name) {
-      this.attrNames.forEach(element => {
-        if (element.en.toLowerCase() == _name) {
-          console.log(element[this.lang])
-          return element[this.lang]
-        }
-      })
+      alert(_name)
+
+      // var self = this
+      // this.attrNames.forEach(function(_item) {
+      //   if (_item.en.toLowerCase() == _name) {
+      //     self.returnLang(_item)
+      //   }
+      // })
+
+      // function loopAElement(element) {
+      //   if (element.en.toLowerCase() == _name) {
+      //     console.log(element[this.lang])
+      //     return element[this.lang]
+      //   }
+      // }
+      // this.attrNames.forEach(element => {
+      //   if (element.en.toLowerCase() == _name) {
+      //     console.log(element[this.lang])
+      //     return element[this.lang]
+      //   }
+      // })
     },
     sorting: function(_type) {
       var _dir = this.dir
