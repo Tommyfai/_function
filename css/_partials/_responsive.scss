@@ -101,3 +101,20 @@ $mobile: $m768;
 // @include desktop {}
 // @include tablet {}
 // @include mobile {}
+
+@include desktop {
+  .desktop {
+    display: inline-block;
+  }
+  .mobile {
+    display: none;
+  }
+}
+@include mobile {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: inline-block;
+  }
+}
