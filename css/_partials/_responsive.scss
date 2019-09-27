@@ -1,16 +1,25 @@
 $m1920: 1920px;
+$m1366: 1366px;
 $m1360: 1360px;
 $m1280: 1280px;
+$m1200: 1200px;
 $m1024: 1024px;
+$m992: 992px;
 $m960: 960px;
 $m768: 768px;
 $m414: 414px;
 $m375: 375px;
 
+// Those are the breakpoints as used by the very popular Twitter Bootstrap framework.
+// smallerthanorequalto 768 px (smartphones)
+// larger than 768 px (small devices, tablets)
+// larger than 992 px (medium devices)
+// larger than 1200px (large devices)
+
 // standard setting
-$widescreen: $m1280;
-$desktop: $m1024;
-$tablet: $m960;
+$widescreen: $m1920;
+$desktop: $m1200;
+$tablet: $m992;
 $mobile: $m768;
 
 @mixin widescreen- {
@@ -18,51 +27,61 @@ $mobile: $m768;
     @content;
   }
 }
+
 @mixin widescreen {
   @media (max-width: #{$widescreen}) {
     @content;
   }
 }
+
 @mixin desktop-widescreen {
   @media (min-width: #{$desktop + 1}) and (max-width: #{$widescreen}) {
     @content;
   }
 }
+
 @mixin desktop- {
   @media (min-width: #{$desktop + 1}) {
     @content;
   }
 }
+
 @mixin desktop {
   @media (max-width: #{$desktop}) {
     @content;
   }
 }
+
 @mixin tablet-desktop {
   @media (min-width: #{$tablet + 1}) and (max-width: #{$desktop}) {
     @content;
   }
 }
+
 @mixin tablet- {
   @media (min-width: #{$tablet + 1}) {
     @content;
   }
 }
+
 @mixin tablet {
   @media (max-width: #{$tablet}) {
     @content;
   }
 }
+
 @mixin mobile-tablet {
   @media (min-width: #{$mobile + 1}) and (max-width: #{$tablet}) {
     @content;
   }
 }
+
 @mixin mobile- {
   @media (min-width: #{$mobile + 1}) {
     @content;
   }
 }
+
 @mixin mobile {
   @media (max-width: #{$mobile}) {
     @content;
