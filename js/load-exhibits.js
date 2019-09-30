@@ -1,33 +1,44 @@
 Vue.component('exhibit-list', {
   template: '<div class="fn-grid" >' +
-    '<template v-for=\'exhibit in _result\' >' +
+    '<template v-for=\'(exhibit, index) in _result\' >' +
     '  <div class="row">' +
-    '    <div class="cell" style="width:50px}" >' +
+    '    <div class="cell" >' +
+    '      {{index + 1}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
     '      {{exhibit["Exhibit Code"]}}' +
     '    </div>' +
-    '    <div class="cell" style="width:50px}" >' +
+    '    <div class="cell" >' +
     '      {{exhibit["Taxa Code"]}}' +
     '    </div>' +
-    '    <div class="cell" style="width:50px}" >' +
+    '    <div class="cell" >' +
     '      {{showText(exhibit, \'Category\')}}' +
     '    </div>' +
-    '    <div class="cell">' +
-    '      {{exhibit["English Common Name"]}}' +
+    '    <div class="cell" >' +
+    '      {{showText(exhibit, \'English Common Name\')}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '      {{showText(exhibit, \'Description\')}}' +
     '    </div>' +
     '  </div>' +
     '</template>' +
     '<div class="row" >' +
-    '    <div class="cell" style="width:50px}" >' +
+    '    <div class="cell" >' +
+    '    </div> ' +
+    '    <div class="cell" >' +
     '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
     '    </div> ' +
-    '    <div class="cell" style="width:50px}" >' +
+    '    <div class="cell" >' +
     '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
     '    </div> ' +
-    '    <div class="cell" style="width:50px}" >' +
+    '    <div class="cell" >' +
     '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
     '    </div> ' +
-    '    <div class="cell">' +
+    '    <div class="cell" >' +
     '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
     '    </div>' +
     '  </div>' +
     '</div>',
@@ -57,7 +68,6 @@ Vue.component('exhibit-list', {
       return _return
     },
     sorting: function (_type) {
-      alert('sorting');
       var _dir = this.dir
       // console.log(_type + '___' + this.sortType);
       if (_type == this.sortType) {
@@ -101,7 +111,6 @@ new Vue({
   },
   components: {},
   methods: {
-
     searchData: function (_type, _value) {
       this.result = []
       if (_type == 'all') {
@@ -149,6 +158,7 @@ new Vue({
       })
     }
   },
+
   mounted: function () {
     $.getJSON(
       'data/exhibits-data.json',
