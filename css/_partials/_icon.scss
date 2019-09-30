@@ -1,5 +1,5 @@
-@mixin css-arrow($direction: up, $width: 50px, $height: 20px, $color: #444) {
-  // @include css-arrow(up, 50px, 20px, #ccc);
+@mixin icon-arrow($direction: up, $width: 50px, $height: 20px, $color: #444) {
+  // @include icon-arrow(up, 50px, 20px, #ccc);
   &::before {
     content: '';
     position: absolute;
