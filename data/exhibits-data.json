@@ -377,14 +377,19 @@
   ],
   "attrNameByLang": [
     {
-      "sc": "展品地點sc",
-      "tc": "展品地點tc",
+      "sc": "展品地點",
+      "tc": "展品地点",
       "en": "Location"
     },
     {
-      "sc": "介紹sc",
-      "tc": "介紹tc",
+      "sc": "介紹",
+      "tc": "介绍",
       "en": "Description"
+    },
+    {
+      "sc": "类别",
+      "tc": "類別",
+      "en": "Category"
     }
   ]
 }

@@ -1,46 +1,63 @@
 Vue.component('exhibit-list', {
-  template: `<div class='fn-grid' >  
-    <template v-for='exhibit in _result'>
-      <div class="row">
-        <div class="cell" :style="{width: '50px'}" >
-          {{exhibit["Exhibit Code"]}}
-        </div> 
-        <div class="cell" :style="{width: '50px'}" >
-          {{exhibit["Taxa Code"]}}
-        </div> 
-        <div class="cell" :style="{width: '100px'}" >
-          {{exhibit["Category"]}}
-        </div> 
-        <div class="cell">
-          {{exhibit["English Common Name"]}}
-        </div>        
-      </div>      
-    </template>
-    <div class="row" >
-        <div class="cell" :style="{width: '50px'}" >        
-          <button v-on:click="sorting('Exhibit Code', dir)">Sort</button>
-        </div> 
-        <div class="cell" :style="{width: '50px'}" >
-          <button v-on:click="sorting('Taxa Code', dir)">Sort</button>
-        </div> 
-        <div class="cell" :style="{width: '100px'}" >
-          <button v-on:click="sorting('Category', dir)">Sort</button>
-        </div> 
-        <div class="cell">
-          <button v-on:click="sorting('English Common Name', dir)">Sort</button>
-        </div>        
-      </div>
-  </div>
-  `,
-  data: function() {
+  template: '<div class="fn-grid" >' +
+    '<template v-for=\'exhibit in _result\' >' +
+    '  <div class="row">' +
+    '    <div class="cell" style="width:50px}" >' +
+    '      {{exhibit["Exhibit Code"]}}' +
+    '    </div>' +
+    '    <div class="cell" style="width:50px}" >' +
+    '      {{exhibit["Taxa Code"]}}' +
+    '    </div>' +
+    '    <div class="cell" style="width:50px}" >' +
+    '      {{showText(exhibit, \'Category\')}}' +
+    '    </div>' +
+    '    <div class="cell">' +
+    '      {{exhibit["English Common Name"]}}' +
+    '    </div>' +
+    '  </div>' +
+    '</template>' +
+    '<div class="row" >' +
+    '    <div class="cell" style="width:50px}" >' +
+    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" style="width:50px}" >' +
+    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" style="width:50px}" >' +
+    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell">' +
+    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '    </div>' +
+    '  </div>' +
+    '</div>',
+  data: function () {
     return {
       sortType: '',
       dir: 1
+      // ,
+      // getAttrLang: function (_attrName) {
+      //   return this.rawHtml();
+      // }
     }
   },
-  props: ['_animaltypes', '_result', '_lan'],
+  props: ['_animaltypes', '_result', '_attrnames', '_lang'],
   methods: {
-    sorting: function(_type) {
+    showText: function (_obj, _name) {
+      return _obj[this.getAttrByLang(_name)]
+    },
+    getAttrByLang: function (_name) {
+      var _lang = this._lang
+      var _return;
+      this._attrnames.map(function (value) {
+        if (value.en.toLowerCase() == _name.toLowerCase()) {
+          _return = value[_lang]
+        }
+      })
+      return _return
+    },
+    sorting: function (_type) {
+      alert('sorting');
       var _dir = this.dir
       // console.log(_type + '___' + this.sortType);
       if (_type == this.sortType) {
@@ -51,12 +68,15 @@ Vue.component('exhibit-list', {
         this.dir = 1
         _dir = 1
       }
-      this._result.sort(function(a, b) {
+      this._result.sort(function (a, b) {
         if (a[_type] < b[_type]) return _dir * -1
         if (a[_type] > b[_type]) return _dir
         return 0
       })
     }
+  },
+  mounted: function () {
+    // alert(this._attrNames);
   }
 })
 
@@ -69,12 +89,11 @@ function sortFunction(a, b) {
 }
 
 new Vue({
-  el: '#root',
+  el: '#root2',
   data: {
-    active: true,
     animaltypes: [],
     exhibits: [],
-    attrNames: [],
+    attrnames: [],
     result: [],
     lang: 'tc',
     sortType: '',
@@ -82,35 +101,39 @@ new Vue({
   },
   components: {},
   methods: {
-    searchData: function(_type, _value) {
+
+    searchData: function (_type, _value) {
       this.result = []
       if (_type == 'all') {
         this.result = this.exhibits
       } else {
-        this.exhibits.forEach(element => {
-          if (element.Category == _value) {
-            this.result.push(element)
-          }
+        this.result = this.exhibits.filter(function (value, index, array) {
+          return value.Category == _value;
         })
       }
     },
-    removeData: function(_num) {
+
+    removeData: function (_num) {
       console.log(_num)
       this.exhibits.splice(_num - 1, 1)
       this.animaltypes.splice(_num - 1, 1)
     },
-    setLang: function(_lang) {
+
+    setLang: function (_lang) {
       this.lang = _lang
     },
-    getAttrByLang: function(_name) {
-      this.attrNames.forEach(element => {
-        if (element.en.toLowerCase() == _name) {
-          console.log(element[this.lang])
-          return element[this.lang]
+
+    getAttrByLang: function (_name) {
+      var _lang = this.lang
+      this.attrNames.map(function (value) {
+        if (value.en.toLowerCase() == _name) {
+          console.log(value[_lang])
+          return value[_lang]
         }
       })
     },
-    sorting: function(_type) {
+
+    sorting: function (_type) {
       var _dir = this.dir
       console.log(_type + '___' + this.sortType)
       if (_type == this.sortType) {
@@ -119,21 +142,22 @@ new Vue({
       } else {
         this.sortType = _type
       }
-      this.result.sort(function(a, b) {
+      this.result.sort(function (a, b) {
         if (a[_type] < b[_type]) return _dir * -1
         if (a[_type] > b[_type]) return _dir
         return 0
       })
     }
   },
-  mounted() {
+  mounted: function () {
     $.getJSON(
       'data/exhibits-data.json',
-      function(_data) {
+      function (_data) {
         this.animaltypes = _data.AnimalTypes
         this.exhibits = _data.Exhibits
         // this.result = _data.Exhibits
-        this.attrNames = _data.attrNameByLang
+        this.attrnames = _data.attrNameByLang
+        // console.log(this.attrNameByLangs)
         console.log(_data.attrNameByLang[0].tc + '==')
       }.bind(this)
     )
