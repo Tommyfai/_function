@@ -86,7 +86,7 @@ Vue.component('exhibit-list', {
     '<template v-if="_result.length > 0" >' +
     ' <div class="row" >' +
     '   <div class="cell" >' +
-    // '{{_result.length}}' +
+    '{{_result.length}}' +
     '   </div> ' +
     '   <div class="cell" >' +
     '     <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
