@@ -1,122 +1,63 @@
-Vue.component('paginated-list', {
-  data() {
-    return {
-      pageNumber: 0
-    }
-  },
-  props: {
-    listData: {
-      type: Array,
-      required: true
-    },
-    size: {
-      type: Number,
-      required: false,
-      default: 10
-    }
-  },
-  methods: {
-    nextPage() {
-      this.pageNumber++;
-    },
-    prevPage() {
-      this.pageNumber--;
-    }
-  },
-  computed: {
-    pageCount() {
-      let l = this.listData.length,
-        s = this.size;
-      return Math.ceil(l / s);
-    },
-    paginatedData() {
-      const start = this.pageNumber * this.size,
-        end = start + this.size;
-      return this.listData
-        .slice(start, end);
-    }
-  },
-  template:
-    `<div>
-      <ul>
-        <li v-for="p in paginatedData">
-          {{p.first}} 
-          {{p.last}}  
-          {{p.suffix}}
-        </li>
-      </ul>
-    <button 
-        :disabled="pageNumber === 0" 
-        @click="prevPage">
-        Previous
-    </button>
-    <button 
-        :disabled="pageNumber >= pageCount -1" 
-        @click="nextPage">
-        Next
-    </button>
-    </div>`
-});
-
-
 Vue.component('exhibit-list', {
   template: '<div class="fn-grid" >' +
-    '<template v-for=\'(exhibit, index) in paginatedData\' >' +
+    // ' <template v-for="(exhibit, index) in _result" >' +
+    // ' <template v-for="(exhibit, index) in _result" >' +
+    ' <template v-for="(exhibit, index) in paginatedData" >' +
+    '  <div class="row" >' +
+    '   <div class="cell" >' +
+    '    {{index + 1}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{exhibit["Exhibit Code"]}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{exhibit["Taxa Code"]}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{showText(exhibit, \'Category\')}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{showText(exhibit, \'English Common Name\')}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{showText(exhibit, \'Description\') | capitalize}}' +
+    '   </div>' +
+    '  </div>' +
+    ' </template>' +
+    ' <template v-if="_result.length > 0" >' +
     '  <div class="row" >' +
     '    <div class="cell" >' +
-    '      {{index + 1}}' +
+    ' {{this.listData.length}}' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
     '    </div>' +
     '    <div class="cell" >' +
-    '      {{exhibit["Exhibit Code"]}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      {{exhibit["Taxa Code"]}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      {{showText(exhibit, \'Category\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      {{showText(exhibit, \'English Common Name\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      {{showText(exhibit, \'Description\')}}' +
+    '      <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
     '    </div>' +
     '  </div>' +
-    '</template>' +
-    '<template v-if="_result.length > 0" >' +
+    ' </template>' +
     ' <div class="row" >' +
-    '   <div class="cell" >' +
-    '{{this.listData.length}}' +
-    '   </div> ' +
-    '   <div class="cell" >' +
-    '     <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
-    '   </div> ' +
-    '   <div class="cell" >' +
-    '     <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
-    '   </div> ' +
-    '   <div class="cell" >' +
-    '     <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
-    '   </div> ' +
-    '   <div class="cell" >' +
-    '     <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
-    '   </div>' +
-    '   <div class="cell" >' +
-    '     <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
-    '   </div>' +
+    '  <button ' +
+    '     :disabled="pageNumber === 0" ' +
+    '     @click="prevPage">' +
+    '     Previous' +
+    '  </button>' +
+    '  <button ' +
+    '     :disabled="pageNumber >= pageCount -1" ' +
+    '     @click="nextPage">' +
+    '     Next' +
+    '  </button>' +
     ' </div>' +
-    '</template>' +
-
-    '<button ' +
-    '    :disabled="pageNumber === 0" ' +
-    '    @click="prevPage">' +
-    '    Previous' +
-    '</button>' +
-    '<button ' +
-    '    :disabled="pageNumber >= pageCount -1" ' +
-    '    @click="nextPage">' +
-    '    Next' +
-    '</button>' +
-
     '</div>',
   data: function () {
     return {
@@ -154,6 +95,16 @@ Vue.component('exhibit-list', {
     _lang: {
       type: String,
       required: true
+    }
+  },
+  filters: {
+    asdf: function (value) {
+      alert(value)
+    },
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   },
   methods: {
@@ -211,21 +162,6 @@ Vue.component('exhibit-list', {
   }
 })
 
-
-
-function createFakeData() {
-  let data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      first: 'John',
-      last: 'Doe',
-      suffix: '#' + i
-    });
-  }
-  return data;
-}
-
-
 new Vue({
   el: '#root2',
   data: {
@@ -235,8 +171,7 @@ new Vue({
     result: [],
     lang: 'tc',
     sortColumn: '',
-    dir: 1,
-    people: createFakeData()
+    dir: 1
   },
   components: {},
   methods: {
