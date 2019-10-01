@@ -1,7 +1,68 @@
+Vue.component('paginated-list', {
+  data() {
+    return {
+      pageNumber: 0
+    }
+  },
+  props: {
+    listData: {
+      type: Array,
+      required: true
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 10
+    }
+  },
+  methods: {
+    nextPage() {
+      this.pageNumber++;
+    },
+    prevPage() {
+      this.pageNumber--;
+    }
+  },
+  computed: {
+    pageCount() {
+      let l = this.listData.length,
+        s = this.size;
+      return Math.ceil(l / s);
+    },
+    paginatedData() {
+      const start = this.pageNumber * this.size,
+        end = start + this.size;
+      return this.listData
+        .slice(start, end);
+    }
+  },
+  template:
+    `<div>
+      <ul>
+        <li v-for="p in paginatedData">
+          {{p.first}} 
+          {{p.last}}  
+          {{p.suffix}}
+        </li>
+      </ul>
+    <button 
+        :disabled="pageNumber === 0" 
+        @click="prevPage">
+        Previous
+    </button>
+    <button 
+        :disabled="pageNumber >= pageCount -1" 
+        @click="nextPage">
+        Next
+    </button>
+    </div>`
+});
+
+
 Vue.component('exhibit-list', {
   template: '<div class="fn-grid" >' +
-    '<template v-for=\'(exhibit, index) in _result\' >' +
-    '  <div class="row">' +
+    '<template v-for=\'(exhibit, index) in paginatedData\' >' +
+    '  <div class="row" >' +
     '    <div class="cell" >' +
     '      {{index + 1}}' +
     '    </div>' +
@@ -22,29 +83,45 @@ Vue.component('exhibit-list', {
     '    </div>' +
     '  </div>' +
     '</template>' +
-    '<div class="row" >' +
-    '    <div class="cell" >' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
-    '    </div>' +
-    '  </div>' +
+    '<template v-if="_result.length > 0" >' +
+    ' <div class="row" >' +
+    '   <div class="cell" >' +
+    // '{{_result.length}}' +
+    '   </div> ' +
+    '   <div class="cell" >' +
+    '     <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '   </div> ' +
+    '   <div class="cell" >' +
+    '     <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '   </div> ' +
+    '   <div class="cell" >' +
+    '     <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '   </div> ' +
+    '   <div class="cell" >' +
+    '     <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '     <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
+    '   </div>' +
+    ' </div>' +
+    '</template>' +
+
+    '<button ' +
+    '    :disabled="pageNumber === 0" ' +
+    '    @click="prevPage">' +
+    '    Previous' +
+    '</button>' +
+    '<button ' +
+    '    :disabled="pageNumber >= pageCount -1" ' +
+    '    @click="nextPage">' +
+    '    Next' +
+    '</button>' +
+
     '</div>',
   data: function () {
     return {
-      sortType: '',
+      pageNumber: 0,
+      sortColumn: '',
       dir: 1
       // ,
       // getAttrLang: function (_attrName) {
@@ -52,8 +129,40 @@ Vue.component('exhibit-list', {
       // }
     }
   },
-  props: ['_animaltypes', '_result', '_attrnames', '_lang'],
+  props: {
+    listData: {
+      type: Array,
+      required: true
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 5
+    },
+    _animaltypes: {
+      type: Array,
+      required: true
+    },
+    _result: {
+      type: Array,
+      required: true
+    },
+    _attrnames: {
+      type: Array,
+      required: true
+    },
+    _lang: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
+    nextPage() {
+      this.pageNumber++;
+    },
+    prevPage() {
+      this.pageNumber--;
+    },
     showText: function (_obj, _name) {
       return _obj[this.getAttrByLang(_name)]
     },
@@ -67,22 +176,34 @@ Vue.component('exhibit-list', {
       })
       return _return
     },
-    sorting: function (_type) {
+    sorting: function (_col) {
       var _dir = this.dir
-      // console.log(_type + '___' + this.sortType);
-      if (_type == this.sortType) {
+      if (_col == this.sortColumn) {
         _dir = _dir * -1
         this.dir = _dir
       } else {
-        this.sortType = _type
+        this.sortColumn = _col
         this.dir = 1
         _dir = 1
       }
       this._result.sort(function (a, b) {
-        if (a[_type] < b[_type]) return _dir * -1
-        if (a[_type] > b[_type]) return _dir
+        if (a[_col] < b[_col]) return _dir * -1
+        if (a[_col] > b[_col]) return _dir
         return 0
       })
+    }
+  },
+  computed: {
+    pageCount() {
+      let l = this.listData.length,
+        s = this.size;
+      return Math.ceil(l / s);
+    },
+    paginatedData() {
+      const start = this.pageNumber * this.size,
+        end = start + this.size;
+      return this.listData
+        .slice(start, end);
     }
   },
   mounted: function () {
@@ -90,13 +211,20 @@ Vue.component('exhibit-list', {
   }
 })
 
-function sortFunction(a, b) {
-  if (a[0] === b[0]) {
-    return 0
-  } else {
-    return a[0] < b[0] ? -1 : 1
+
+
+function createFakeData() {
+  let data = [];
+  for (let i = 0; i < 100; i++) {
+    data.push({
+      first: 'John',
+      last: 'Doe',
+      suffix: '#' + i
+    });
   }
+  return data;
 }
+
 
 new Vue({
   el: '#root2',
@@ -106,8 +234,9 @@ new Vue({
     attrnames: [],
     result: [],
     lang: 'tc',
-    sortType: '',
-    dir: 1
+    sortColumn: '',
+    dir: 1,
+    people: createFakeData()
   },
   components: {},
   methods: {
@@ -142,21 +271,21 @@ new Vue({
       })
     },
 
-    sorting: function (_type) {
-      var _dir = this.dir
-      console.log(_type + '___' + this.sortType)
-      if (_type == this.sortType) {
-        _dir = _dir * -1
-        this.dir = _dir
-      } else {
-        this.sortType = _type
-      }
-      this.result.sort(function (a, b) {
-        if (a[_type] < b[_type]) return _dir * -1
-        if (a[_type] > b[_type]) return _dir
-        return 0
-      })
-    }
+    // sorting: function (_col) {
+    //   var _dir = this.dir
+    //   console.log(_col + '___' + this.sortColumn)
+    //   if (_col == this.sortColumn) {
+    //     _dir = _dir * -1
+    //     this.dir = _dir
+    //   } else {
+    //     this.sortColumn = _col
+    //   }
+    //   this.result.sort(function (a, b) {
+    //     if (a[_col] < b[_col]) return _dir * -1
+    //     if (a[_col] > b[_col]) return _dir
+    //     return 0
+    //   })
+    // }
   },
 
   mounted: function () {

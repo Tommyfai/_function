@@ -13,7 +13,6 @@
 
   <body>
     <div id="root2">
-      <exhibit-list v-bind:_animaltypes="animaltypes" v-bind:_result="result" v-bind:_lang="lang" v-bind:_attrnames="attrnames"></exhibit-list>
       <div>
         <button v-on:click="sorting('English Common Name')">Sort English Common Name</button>
         <button v-on:click="sorting('Exhibit Code')">Sort Exhibit Code</button>
@@ -29,6 +28,8 @@
         <button v-on:click="searchData('all')">Show All</button>
         <button v-on:click="searchData('animaltype','Herptile')">Search Herptile</button>
       </div>
+      <exhibit-list :_animaltypes="animaltypes" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
+      <!-- <paginated-list :list-data="people"/> -->
     </div>
     <!-- <script src="./js/components.js"></script> -->
     <!-- <script src="./js/vue-index.js"></script> -->
