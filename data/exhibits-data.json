@@ -440,27 +440,37 @@
   ],
   "AnimalTypes": [
     {
+      "物種分類SC": "哺乳類SC",
       "物種分類": "哺乳類",
-      "Category": "Mammal"
+      "AnimalType": "Mammal"
     },
     {
+      "物種分類SC": "兩棲及爬行類SC",
       "物種分類": "兩棲及爬行類",
-      "Category": "Herptile"
+      "AnimalType": "Herptile"
     },
     {
+      "物種分類SC": "魚類SC",
       "物種分類": "魚類",
-      "Category": "Fish"
+      "AnimalType": "Fish"
     },
     {
+      "物種分類SC": "鳥類SC",
       "物種分類": "鳥類",
-      "Category": "Bird"
+      "AnimalType": "Bird"
     },
     {
+      "物種分類SC": "昆蟲SC",
       "物種分類": "昆蟲",
-      "Category": "Insect"
+      "AnimalType": "Insect"
     }
   ],
   "attrNameByLang": [
+    {
+      "sc": "物種分類SC",
+      "tc": "物種分類",
+      "en": "AnimalType"
+    },
     {
       "sc": "中文名稱",
       "tc": "中文名稱",
@@ -480,6 +490,11 @@
       "sc": "类别",
       "tc": "類別",
       "en": "Category"
+    },
+    {
+      "sc": "- 选择 -",
+      "tc": "- 選擇 -",
+      "en": "- Select -"
     }
   ]
 }

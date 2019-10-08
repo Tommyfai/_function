@@ -1,29 +1,69 @@
 Vue.component('exhibit-list', {
-  template: '<div>' +
-    ' <div class="table" >' +
-    '  <template v-for="(exhibit, index) in paginatedData" >' +
-    '   <div class="row" >' +
-    '    <div class="cell" >' +
-    '     {{size * pageNumber + index + 1}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{exhibit["Exhibit Code"]}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{exhibit["Taxa Code"]}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{showText(exhibit, \'Category\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{showText(exhibit, \'English Common Name\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{showText(exhibit, \'Description\') | capitalize}}' +
-    '    </div>' +
-    '   </div>' +
+  template: '<div class="fn-grid" >' +
+
+    '<input type="text" class="input-text" placeholder="Description" >' +
+
+    '<select class="input-select" v-model="typeSelected" >' +
+    ' <option disabled value="">{{getAttrByLang(\'- select -\')}}</option>' +
+    '  <template v-for="(_type, index) in animalTypes" >' +
+    '   <option>{{showText(_type, \'AnimalType\')}}</option>' +
     '  </template>' +
+    '</select>{{typeSelected}}' +
+
+    ' <div class="paging" >' +
+    '  <div class="btns">' +
+    '   <button :disabled="pageNumber === 0" @click="prevPage">Previous</button>' +
+    '   <button :disabled="pageNumber >= pageCount -1" @click="nextPage">Next</button>' +
+    '  </div>' +
     ' </div>' +
+
+    '<div class="table" >' +
+    ' <template v-for="(exhibit, index) in paginatedData" >' +
+    '  <div class="row" >' +
+    '   <div class="cell" >' +
+    '    {{size * pageNumber + index + 1}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{exhibit["Exhibit Code"]}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{exhibit["Taxa Code"]}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{showText(exhibit, \'Category\')}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{showText(exhibit, \'English Common Name\')}}' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    {{showText(exhibit, \'Description\') | capitalize}}' +
+    '   </div>' +
+    '  </div>' +
+    ' </template>' +
+    ' <template v-if="_exhibits.length > 0" >' +
+    '  <div class="row" >' +
+    '    <div class="cell" >' +
+    '     {{this._result.length}}' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
+    '    </div>' +
+    '  </div>' +
+    ' </template>' +
+    '</div><button v-on:click="searchData(\'all\')">Show All</button><button v-on:click="searchData(\'animaltype\',\'Herptile\')">Search Herptile</button>' +
+
     '</div>',
   data: function () {
     return {
@@ -139,8 +179,8 @@ Vue.component('exhibit-list', {
   },
   created: function () {
     // this.result = this._result;
-    // alert('d');
-    // alert(this._lang);
+    alert('d');
+    alert(this._lang);
   },
   mounted: function () {
     // this.result = this._result;
@@ -150,133 +190,7 @@ Vue.component('exhibit-list', {
     // alert(this._result);
   }
 })
-Vue.component('list-paging', {
-  template: '<div>' +
-    ' <div class="paging" >' +
-    '  <div class="btns">' +
-    '   <button :disabled="pageNumber === 0" @click="prevPage">Previous</button>' +
-    '   <button :disabled="pageNumber >= pageCount -1" @click="nextPage">Next</button>' +
-    '  </div>' +
-    ' </div>' +
-    '</div>',
-  data: function () {
-    return {
-      pageNumber: 0,
-    }
-  },
-  props: {
-    size: {
-      type: Number,
-      required: false,
-      default: 5
-    },
-    animalTypes: {
-      type: Array,
-      required: true
-    },
-    _exhibits: {
-      type: Array,
-      required: true
-    },
-    _result: {
-      type: Array,
-      required: true
-    },
-    _attrnames: {
-      type: Array,
-      required: true
-    },
-    _lang: {
-      type: String,
-      required: true
-    }
-  },
-  methods: {
-    nextPage() {
-      // this.pageNumber++;
-      const start = this.pageNumber * this.size,
-        end = start + this.size;
-      // return this._result.slice(start, end);
-      // alert(end);
-      this._resul = this._result
-        .slice(start, end)
-      alert(this._resul);
-      // alert(this.paginatedData());
-    },
-    prevPage() {
-      this.pageNumber--;
-    }
-  },
-  computed: {
-    pageCount() {
-      let l = this._result.length,
-        s = this.size;
-      return Math.ceil(l / s);
-    },
-    paginatedData() {
-      const start = this.pageNumber * this.size,
-        end = start + this.size;
-      return this._result
-        .slice(start, end);
-    }
-  }
-})
-Vue.component('list-sort', {
-  template: '<div>' +
-    ' <template v-if="_result.length > 0" >' +
-    '  <div class="row" >' +
-    '    <div class="cell" >' +
-    '     {{this._result.length}}' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
-    '    </div>' +
-    '  </div>' +
-    ' </template>' +
-    '</div>',
-  data: function () {
-    return {
-      sortColumn: '',
-      dir: 1,
-    }
-  },
-  props: {
-    _result: {
-      type: Array,
-      required: true
-    }
-  },
-  methods: {
-    sorting: function (_col) {
-      var _dir = this.dir
-      if (_col == this.sortColumn) {
-        _dir = _dir * -1
-        this.dir = _dir
-      } else {
-        this.sortColumn = _col
-        this.dir = 1
-        _dir = 1
-      }
-      this._result.sort(function (a, b) {
-        if (a[_col] < b[_col]) return _dir * -1
-        if (a[_col] > b[_col]) return _dir
-        return 0
-      })
-    }
-  }
-})
+
 new Vue({
   el: '#root2',
   data: {

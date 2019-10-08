@@ -13,22 +13,26 @@
 
   <body>
     <div id="root2">
-      <div>
+      <!-- <div>
         <button v-on:click="sorting('English Common Name')">Sort English Common Name</button>
         <button v-on:click="sorting('Exhibit Code')">Sort Exhibit Code</button>
+      </div> -->
+      <div class="change-language">
+        <button v-on:click="setLang('en')">En</button>
+        <button v-on:click="setLang('tc')">繁</button>
+        <button v-on:click="setLang('sc')">簡</button>
+        <!-- <button v-on:click="getAttrByLang('location')">getAttrName</button> -->
       </div>
-      <div>
-        <button v-on:click="setLang('en')">en</button>
-        <button v-on:click="setLang('tc')">tc</button>
-        <button v-on:click="setLang('sc')">sc</button>
-        <button v-on:click="getAttrByLang('location')">getAttrName</button>
+      <div class="fn-grid">
+        <list-paging :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-paging>
+        <exhibit-list :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
+        <list-sort :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-sort>
       </div>
       <div>
         <button v-on:click="searchData('reset')">Reset</button>
         <button v-on:click="searchData('all')">Show All</button>
         <button v-on:click="searchData('animaltype','Herptile')">Search Herptile</button>
       </div>
-      <exhibit-list :_animaltypes="animaltypes" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
     </div>
     <!-- <script src="./js/components.js"></script> -->
     <!-- <script src="./js/vue-index.js"></script> -->

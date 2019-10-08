@@ -38,11 +38,38 @@ body {
   margin: 10px;
 }
 
+.change-language {
+  text-align: right;
+  padding: 10px;
+}
 .fn-grid {
-  font-size: 0;
-  display: table;
-  width: 100%;
+  $pad: 10px;
+  // font-size: 0;
+  .input-text {
+    padding: $pad / 2;
+    margin: $pad / 2;
+  }
+  .input-select {
+    padding: $pad / 2;
+    margin: $pad / 2;
+  }
+  .paging {
+    display: block;
+    text-align: right;
+    .btns {
+      display: block;
+      padding: $pad;
+    }
+  }
+  .table {
+    @include box-sizing();
+    border: 1px solid #e5e5e5;
+    display: table;
+    width: 100%;
+  }
+
   .row {
+    border: 1px solid red !important;
     font-size: 0;
     vertical-align: top;
     display: table-row;
@@ -57,7 +84,7 @@ body {
       vertical-align: top;
       display: inline-block;
       display: table-cell;
-      padding: 10px;
+      padding: $pad;
     }
   }
   &.cols-04 {

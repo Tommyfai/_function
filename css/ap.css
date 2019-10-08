@@ -1,3 +1,21 @@
+@media (max-width: 1200px) {
+  .desktop {
+    display: inline-block;
+  }
+  .mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .mobile {
+    display: inline-block;
+  }
+}
+
 /* ---------------------------------- */
 /* --------- functions (Start)------- */
 /* @include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.2)); */
