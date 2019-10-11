@@ -40,7 +40,7 @@ new Vue({
   mounted: function () {
     var id = "1NcYqzx397HXmFwWhc5ro9N4-tzcbFKtqmLd6kIghh8Y";
     var sheet = 1;
-    var url = 'https://spreadsheets.google.com/feeds/cells/' + id + '/' + sheet + '/public/values?alt=json';
+    var url = 'https://spreadsheets.google.com/feeds/list/' + id + '/' + sheet + '/public/values?alt=json';
     // var url = 'https://spreadsheets.google.com/feeds/list/' + id + '/' + sheet + '/public/values?alt=json';
     // var url = 'https://spreadsheets.google.com/feeds/cells/' + spreadsheetID + '/1/public/full?alt=json';
     var showRows = true;
@@ -62,14 +62,14 @@ new Vue({
             var newRow = {};
             var queried = false;
             for (var j = 0; j < keys.length; j++) {
-              var gsxCheck = keys[j].indexOf('gs$');
-              // var gsxCheck = keys[j].indexOf('gsx$');
-              // console.log(keys[j]);
+              // var gsxCheck = keys[j].indexOf('gs$'); // cells
+              var gsxCheck = keys[j].indexOf('gsx$'); // for list              
               if (gsxCheck > -1) {
                 var key = keys[j];
                 var name = key.substring(4);
                 var content = entry[key];
                 var value = content.$t;
+                // console.log(content);
                 if (value.toLowerCase().indexOf(query.toLowerCase()) > -1) {
                   queried = true;
                 }
@@ -98,8 +98,9 @@ new Vue({
         if (showRows === true) {
           responseObj['rows'] = rows;
         }
+        // response.json(responseObj);
         console.log(responseObj['rows']);
-        //   return res.status(200).json(responseObj);
+        // return res.status(200).json(responseObj);
       }.bind(this)
     )
   },
