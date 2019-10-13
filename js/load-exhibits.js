@@ -277,32 +277,22 @@ new Vue({
     // this.attrnames.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 3));
 
     // console.log(this.animaltypes);
-    _getGsData(
-      '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ',
-      2,
-      function (_data) {
-        this.animaltypes = _data;
-        console.log(_data);
-      }.bind(this)
-    );
-    _getGsData(
-      '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ',
-      3,
-      function (_data) {
-        this.attrnames = _data;
-        console.log(_data);
-      }.bind(this)
-    );
-    _getGsData(
-      '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ',
-      1,
-      function (_data) {
-        // console.log(_data);
-        this.exhibits = _data;
-        console.log(_data);
-        this.result = this.exhibits;
-      }.bind(this)
-    )
+    var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
+
+    _getGsData(_id, 2, function (_data) {
+      this.animaltypes = _data;
+      console.log(_data);
+    }.bind(this));
+    _getGsData(_id, 3, function (_data) {
+      this.attrnames = _data;
+      console.log(_data);
+    }.bind(this));
+    _getGsData(_id, 1, function (_data) {
+      // console.log(_data);
+      this.exhibits = _data;
+      console.log(_data);
+      this.result = this.exhibits;
+    }.bind(this))
 
     // console.log(this.exhibits);
   },
