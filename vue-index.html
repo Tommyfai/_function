@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="js/_function.js"></script>
     <link rel="stylesheet" href="css/website.css" />
   </head>
 
@@ -24,9 +25,9 @@
         <!-- <button v-on:click="getAttrByLang('location')">getAttrName</button> -->
       </div>
       <div class="fn-grid">
-        <list-paging :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-paging>
+        <!-- <list-paging :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-paging> -->
         <exhibit-list :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
-        <list-sort :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-sort>
+        <!-- <list-sort :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-sort> -->
       </div>
       <div>
         <button v-on:click="searchData('reset')">Reset</button>

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @media (max-width: 1200px) {
   .desktop {
     display: inline-block;
@@ -639,7 +640,7 @@ body {
   padding: 0px;
   margin: 0px;
   font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', serif;
 }
 
 html h1,
@@ -708,8 +709,12 @@ body a {
 }
 
 .fn-grid .paging .btns {
-  display: block;
+  display: inline-block;
   padding: 10px;
+}
+
+.fn-grid .paging .page-of {
+  display: inline-block;
 }
 
 .fn-grid .table {

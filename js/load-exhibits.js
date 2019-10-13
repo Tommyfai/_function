@@ -1,29 +1,88 @@
 Vue.component('exhibit-list', {
   template: '<div>' +
+    ' <div class="paging" >' +
+    '  <div class="page-of">Page {{this.pageNumber}} of {{pageCount}}, Total: {{this._result.length}} </div>' +
+    '  <div class="btns">' +
+    '   <button :disabled="pageNumber === 0" @click="prevPage">Previous</button>' +
+    '   <button :disabled="pageNumber >= pageCount -1" @click="nextPage">Next</button>' +
+    '  </div>' +
+    ' </div>' +
     ' <div class="table" >' +
+    '   <div class="row" >' +
+    '    <div class="cell" >' +
+    '     No.' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getAttrByLang(\'Exhibit Code\')}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getAttrByLang(\'Taxa Code\')}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getAttrByLang(\'Category\')}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getAttrByLang(\'English Common Name\')}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getAttrByLang(\'Family\') | capitalize}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getAttrByLang(\'Location\')}}' +
+    '    </div>' +
+    '   </div>' +
     '  <template v-for="(exhibit, index) in paginatedData" >' +
     '   <div class="row" >' +
     '    <div class="cell" >' +
     '     {{size * pageNumber + index + 1}}' +
     '    </div>' +
     '    <div class="cell" >' +
-    '     {{exhibit["Exhibit Code"]}}' +
+    '     {{getKeyById(exhibit, \'Exhibit Code\')}}' +
     '    </div>' +
     '    <div class="cell" >' +
-    '     {{exhibit["Taxa Code"]}}' +
+    '     {{getKeyById(exhibit, \'Taxa Code\')}}' +
     '    </div>' +
     '    <div class="cell" >' +
-    '     {{showText(exhibit, \'Category\')}}' +
+    '     {{getKeyById(exhibit, \'Category\')}}' +
     '    </div>' +
     '    <div class="cell" >' +
-    '     {{showText(exhibit, \'English Common Name\')}}' +
+    '     {{getKeyById(exhibit, \'English Common Name\')}}' +
     '    </div>' +
     '    <div class="cell" >' +
-    '     {{showText(exhibit, \'Description\') | capitalize}}' +
+    '     {{getKeyById(exhibit, \'Family\') | capitalize}}' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '     {{getKeyById(exhibit, \'Location\')}}' +
     '    </div>' +
     '   </div>' +
     '  </template>' +
+    ' <template v-if="paginatedData.length > 0" >' +
+    '  <div class="row" >' +
+    '    <div class="cell" >' +
+    // '     {{this._result.length}}' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '    </div> ' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Family\', dir)">Sort</button>' +
+    '    </div>' +
+    '    <div class="cell" >' +
+    '      <button v-on:click="sorting(\'Location\', dir)">Sort</button>' +
+    '    </div>' +
+    '  </div>' +
+    ' </template>' +
     ' </div>' +
+
     '</div>',
   data: function () {
     return {
@@ -83,20 +142,21 @@ Vue.component('exhibit-list', {
     prevPage() {
       this.pageNumber--;
     },
-    showText: function (_obj, _name) {
+    getKeyById: function (_obj, _name) {
       return _obj[this.getAttrByLang(_name)]
     },
     getAttrByLang: function (_name) {
       var _lang = this._lang
       var _return;
       this._attrnames.map(function (value) {
-        if (value.en.toLowerCase() == _name.toLowerCase()) {
+        if (value.id.toLowerCase() == _name.toLowerCase()) {
           _return = value[_lang]
         }
       })
       return _return
     },
     sorting: function (_col) {
+      _col = this.getAttrByLang(_col)
       var _dir = this.dir
       if (_col == this.sortColumn) {
         _dir = _dir * -1
@@ -126,8 +186,7 @@ Vue.component('exhibit-list', {
   },
   computed: {
     pageCount() {
-      let l = this._result.length,
-        s = this.size;
+      let l = this._result.length, s = this.size;
       return Math.ceil(l / s);
     },
     paginatedData() {
@@ -150,133 +209,7 @@ Vue.component('exhibit-list', {
     // alert(this._result);
   }
 })
-Vue.component('list-paging', {
-  template: '<div>' +
-    ' <div class="paging" >' +
-    '  <div class="btns">' +
-    '   <button :disabled="pageNumber === 0" @click="prevPage">Previous</button>' +
-    '   <button :disabled="pageNumber >= pageCount -1" @click="nextPage">Next</button>' +
-    '  </div>' +
-    ' </div>' +
-    '</div>',
-  data: function () {
-    return {
-      pageNumber: 0,
-    }
-  },
-  props: {
-    size: {
-      type: Number,
-      required: false,
-      default: 5
-    },
-    animalTypes: {
-      type: Array,
-      required: true
-    },
-    _exhibits: {
-      type: Array,
-      required: true
-    },
-    _result: {
-      type: Array,
-      required: true
-    },
-    _attrnames: {
-      type: Array,
-      required: true
-    },
-    _lang: {
-      type: String,
-      required: true
-    }
-  },
-  methods: {
-    nextPage() {
-      // this.pageNumber++;
-      const start = this.pageNumber * this.size,
-        end = start + this.size;
-      // return this._result.slice(start, end);
-      // alert(end);
-      this._resul = this._result
-        .slice(start, end)
-      alert(this._resul);
-      // alert(this.paginatedData());
-    },
-    prevPage() {
-      this.pageNumber--;
-    }
-  },
-  computed: {
-    pageCount() {
-      let l = this._result.length,
-        s = this.size;
-      return Math.ceil(l / s);
-    },
-    paginatedData() {
-      const start = this.pageNumber * this.size,
-        end = start + this.size;
-      return this._result
-        .slice(start, end);
-    }
-  }
-})
-Vue.component('list-sort', {
-  template: '<div>' +
-    ' <template v-if="_result.length > 0" >' +
-    '  <div class="row" >' +
-    '    <div class="cell" >' +
-    '     {{this._result.length}}' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Description\', dir)">Sort</button>' +
-    '    </div>' +
-    '  </div>' +
-    ' </template>' +
-    '</div>',
-  data: function () {
-    return {
-      sortColumn: '',
-      dir: 1,
-    }
-  },
-  props: {
-    _result: {
-      type: Array,
-      required: true
-    }
-  },
-  methods: {
-    sorting: function (_col) {
-      var _dir = this.dir
-      if (_col == this.sortColumn) {
-        _dir = _dir * -1
-        this.dir = _dir
-      } else {
-        this.sortColumn = _col
-        this.dir = 1
-        _dir = 1
-      }
-      this._result.sort(function (a, b) {
-        if (a[_col] < b[_col]) return _dir * -1
-        if (a[_col] > b[_col]) return _dir
-        return 0
-      })
-    }
-  }
-})
+
 new Vue({
   el: '#root2',
   data: {
@@ -284,7 +217,7 @@ new Vue({
     exhibits: [],
     attrnames: [],
     result: [],
-    lang: 'tc',
+    lang: 'en',
     sortColumn: '',
     dir: 1
   },
@@ -295,8 +228,9 @@ new Vue({
       if (_type == 'all') {
         this.result = this.exhibits
       } else {
+        console.log(_value)
         this.result = this.exhibits.filter(function (value, index, array) {
-          return value.Category == _value;
+          return value.category == _value;
         })
       }
     },
@@ -319,52 +253,61 @@ new Vue({
           return value[_lang]
         }
       })
-    },
-
-    // sorting: function (_col) {
-    //   var _dir = this.dir
-    //   console.log(_col + '___' + this.sortColumn)
-    //   if (_col == this.sortColumn) {
-    //     _dir = _dir * -1
-    //     this.dir = _dir
-    //   } else {
-    //     this.sortColumn = _col
-    //   }
-    //   this.result.sort(function (a, b) {
-    //     if (a[_col] < b[_col]) return _dir * -1
-    //     if (a[_col] > b[_col]) return _dir
-    //     return 0
-    //   })
-    // }
+    }
   },
 
   mounted: function () {
-    $.getJSON(
-      'data/exhibits-data.json',
+    // $.getJSON(
+    //   'data/exhibits-data.json',
+    //   function (_data) {
+    //     this.animaltypes = _data.AnimalTypes
+    //     this.exhibits = _data.Exhibits
+    //     console.log(_data.Exhibits);
+    //     this.attrnames = _data.attrNameByLang
+    //     // console.log(this.attrNameByLangs)
+    //     // console.log(_data.attrNameByLang[0].tc + '==')
+    //     this.result = this.exhibits;
+    //   }.bind(this)
+    // )
+    // console.log(this.animaltypes);
+
+    // _getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 1)
+    // this.exhibits.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 1));
+    // this.animaltypes.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 2));
+    // this.attrnames.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 3));
+
+    // console.log(this.animaltypes);
+    _getGsData(
+      '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ',
+      2,
       function (_data) {
-        this.animaltypes = _data.AnimalTypes
-        this.exhibits = _data.Exhibits
-        this.attrnames = _data.attrNameByLang
-        // console.log(this.attrNameByLangs)
-        console.log(_data.attrNameByLang[0].tc + '==')
+        this.animaltypes = _data;
+        console.log(_data);
+      }.bind(this)
+    );
+    _getGsData(
+      '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ',
+      3,
+      function (_data) {
+        this.attrnames = _data;
+        console.log(_data);
+      }.bind(this)
+    );
+    _getGsData(
+      '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ',
+      1,
+      function (_data) {
+        // console.log(_data);
+        this.exhibits = _data;
+        console.log(_data);
         this.result = this.exhibits;
       }.bind(this)
     )
 
+    // console.log(this.exhibits);
   },
   created: function () {
     //this.result = this.exhibits;
   },
 })
 
-/*
-<ul v-for='animaltype in _animaltypes'>
-  <li> {{animaltype.Category}} {{animaltype.物種分類}}
-    <ul v-for='exhibit in _result' >
-      <li v-if="animaltype.Category === exhibit.Category" >
-        {{exhibit["Exhibit Code"]}}
-      </li>
-    </ul>
-  </li>
-</ul>
-*/
