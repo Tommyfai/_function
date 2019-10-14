@@ -200,7 +200,6 @@ Vue.component('exhibit-list', {
       if (_category != '') {
         _keyName = this.getAttrByLang('Category');
         this.records = this.records.filter(function (value, index, array) {
-          // return value[_keyName] == _category;
           return (value[_keyName].toLowerCase().indexOf(_category.toLowerCase()) != -1);
         })
       }
