@@ -1,36 +1,59 @@
 Vue.component('exhibit-list', {
   template: '<div>' +
     ' <div class="paging" >' +
-    '  <div class="page-of">Page {{this.pageNumber}} of {{pageCount}}, Total: {{this._result.length}} </div>' +
+    '  <div class="page-of">Page {{this.pageNumber}} of {{pageCount}}, Total: {{this.records.length}} </div>' +
     '  <div class="btns">' +
     '   <button :disabled="pageNumber === 0" @click="prevPage">Previous</button>' +
     '   <button :disabled="pageNumber >= pageCount -1" @click="nextPage">Next</button>' +
     '  </div>' +
     ' </div>' +
     ' <div class="table" >' +
-    '   <div class="row" >' +
-    '    <div class="cell" >' +
-    '     No.' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{getAttrByLang(\'Exhibit Code\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{getAttrByLang(\'Taxa Code\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{getAttrByLang(\'Category\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{getAttrByLang(\'English Common Name\')}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{getAttrByLang(\'Family\') | capitalize}}' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '     {{getAttrByLang(\'Location\')}}' +
-    '    </div>' +
+    '  <div class="row" >' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" />' +
     '   </div>' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" />' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" v-model="filters.taxacode" />' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" v-model="filters.category" />' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" />' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" />' +
+    '   </div>' +
+    '   <div class="cell" >' +
+    '    <input class="filter" type="text" />' +
+    '   </div>' +
+    '  </div>' +
+    '  <div class="row" >' +
+    '   <div class="cell hd" >' +
+    '    No.' +
+    '   </div>' +
+    '   <div class="cell hd" >' +
+    '    {{getAttrByLang(\'Exhibit Code\')}}' +
+    '   </div>' +
+    '   <div class="cell hd" >' +
+    '    {{getAttrByLang(\'Taxa Code\')}}' +
+    '   </div>' +
+    '   <div class="cell hd" >' +
+    '    {{getAttrByLang(\'Category\')}}' +
+    '   </div>' +
+    '   <div class="cell hd" >' +
+    '    {{getAttrByLang(\'English Common Name\')}}' +
+    '   </div>' +
+    '   <div class="cell hd" >' +
+    '    {{getAttrByLang(\'Family\') | capitalize}}' +
+    '   </div>' +
+    '   <div class="cell hd" >' +
+    '    {{getAttrByLang(\'Location\')}}' +
+    '   </div>' +
+    '  </div>' +
     '  <template v-for="(exhibit, index) in paginatedData" >' +
     '   <div class="row" >' +
     '    <div class="cell" >' +
@@ -56,33 +79,32 @@ Vue.component('exhibit-list', {
     '    </div>' +
     '   </div>' +
     '  </template>' +
-    ' <template v-if="paginatedData.length > 0" >' +
-    '  <div class="row" >' +
-    '    <div class="cell" >' +
-    // '     {{this._result.length}}' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
-    '    </div> ' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Family\', dir)">Sort</button>' +
-    '    </div>' +
-    '    <div class="cell" >' +
-    '      <button v-on:click="sorting(\'Location\', dir)">Sort</button>' +
-    '    </div>' +
-    '  </div>' +
-    ' </template>' +
+    '  <template v-if="paginatedData.length > 0" >' +
+    '   <div class="row" >' +
+    '     <div class="cell" >' +
+    //  '     {{this._result.length}}' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '     </div>' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Family\', dir)">Sort</button>' +
+    '     </div>' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Location\', dir)">Sort</button>' +
+    '     </div>' +
+    '   </div>' +
+    '  </template>' +
     ' </div>' +
-
     '</div>',
   data: function () {
     return {
@@ -90,18 +112,14 @@ Vue.component('exhibit-list', {
       sortColumn: '',
       dir: 1,
       typeSelected: 'all',
-      result: [],
-      // ,
-      // getAttrLang: function (_attrName) {
-      //   return this.rawHtml();
-      // }
+      filters: {
+        category: '',
+        taxacode: ''
+      },
+      records: [],
     }
   },
   props: {
-    listData: {
-      type: Array,
-      required: true
-    },
     size: {
       type: Number,
       required: false,
@@ -112,10 +130,6 @@ Vue.component('exhibit-list', {
       required: true
     },
     _exhibits: {
-      type: Array,
-      required: true
-    },
-    _result: {
       type: Array,
       required: true
     },
@@ -171,42 +185,40 @@ Vue.component('exhibit-list', {
         if (a[_col] > b[_col]) return _dir
         return 0
       })
-    },
-    searchData: function (_type, _value) {
-      alert(this.result);
-      this._result = []
-      if (_type == 'all') {
-        this._result = this._exhibits
-      } else {
-        this._result = this._exhibits.filter(function (value, index, array) {
-          return value.Category == _value;
-        })
-      }
     }
   },
   computed: {
     pageCount() {
-      let l = this._result.length, s = this.size;
+      let l = this.records.length, s = this.size;
       return Math.ceil(l / s);
     },
     paginatedData() {
-      const start = this.pageNumber * this.size,
-        end = start + this.size;
-      return this._result
-        .slice(start, end);
+      this.records = this._exhibits;
+      var _category = this.filters.category;
+      var _taxacode = this.filters.taxacode;
+      if (_category != '') {
+        _keyName = this.getAttrByLang('Category');
+        this.records = this.records.filter(function (value, index, array) {
+          // return value[_keyName] == _category;
+          return (value[_keyName].toLowerCase().indexOf(_category.toLowerCase()) != -1);
+        })
+      }
+      if (_taxacode != '') {
+        _keyName = this.getAttrByLang('Taxa Code');
+        this.records = this.records.filter(function (value, index, array) {
+          return (value[_keyName].toLowerCase().indexOf(_taxacode.toLowerCase()) != -1);
+        })
+      }
+      const start = this.pageNumber * this.size;
+      const end = start + this.size;
+      return this.records.slice(start, end);
     }
   },
   created: function () {
-    // this.result = this._result;
-    // alert('d');
-    // alert(this._lang);
+    // this.result = this._result;    
   },
   mounted: function () {
-    // this.result = this._result;
-    // alert('d');
-    // alert(this._result);
-    // alert(this._attrNames);
-    // alert(this._result);
+    // console.log(this.result);
   }
 })
 
@@ -276,7 +288,6 @@ new Vue({
     // this.animaltypes.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 2));
     // this.attrnames.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 3));
 
-    // console.log(this.animaltypes);
     var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
 
     _getGsData(_id, 2, function (_data) {
@@ -294,7 +305,6 @@ new Vue({
       this.result = this.exhibits;
     }.bind(this))
 
-    // console.log(this.exhibits);
   },
   created: function () {
     //this.result = this.exhibits;

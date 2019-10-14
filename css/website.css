@@ -693,6 +693,12 @@ body a {
   padding: 10px;
 }
 
+.fn-grid .filter {
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
 .fn-grid .input-text {
   padding: 5px;
   margin: 5px;
@@ -749,6 +755,10 @@ body a {
   padding: 10px;
 }
 
+.fn-grid .row .cell.hd {
+  font-weight: bold;
+}
+
 .fn-grid.cols-04 .cell {
   width: 25%;
 }
@@ -756,4 +766,3 @@ body a {
 .fn-grid.cols-05 .cell {
   width: 20%;
 }
-/*# sourceMappingURL=website.css.map */

@@ -45,6 +45,11 @@ body {
 .fn-grid {
   $pad: 10px;
   // font-size: 0;
+  .filter {
+    display: block;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
   .input-text {
     padding: $pad / 2;
     margin: $pad / 2;
@@ -88,6 +93,9 @@ body {
       display: inline-block;
       display: table-cell;
       padding: $pad;
+      &.hd {
+        font-weight: bold;
+      }
     }
   }
   &.cols-04 {
