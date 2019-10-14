@@ -58,25 +58,25 @@ Vue.component('exhibit-list', {
     '  </div>' +
     '  <div class="row hd" >' +
     '   <div class="cell " >' +
-    '    No.' +
+    '    {{getAttrByLang(\'header-item-num\')}}' +
     '   </div>' +
     '   <div class="cell" >' +
-    '    {{getAttrByLang(\'Exhibit Code\')}}' +
+    '    {{getAttrByLang(\'header-exhibit-code\')}}' +
     '   </div>' +
     '   <div class="cell" >' +
-    '    {{getAttrByLang(\'Taxa Code\')}}' +
+    '    {{getAttrByLang(\'header-taxa-code\')}}' +
     '   </div>' +
     '   <div class="cell" >' +
-    '    {{getAttrByLang(\'Category\')}}' +
+    '    {{getAttrByLang(\'header-category\')}}' +
     '   </div>' +
     '   <div class="cell" >' +
-    '    {{getAttrByLang(\'English Common Name\')}}' +
+    '    {{getAttrByLang(\'header-common-name\')}}' +
     '   </div>' +
     '   <div class="cell" >' +
-    '    {{getAttrByLang(\'Family\') | capitalize}}' +
+    '    {{getAttrByLang(\'header-family\') | capitalize}}' +
     '   </div>' +
     '   <div class="cell" >' +
-    '    {{getAttrByLang(\'Location\')}}' +
+    '    {{getAttrByLang(\'header-location\')}}' +
     '   </div>' +
     '  </div>' +
     '  <template v-for="(exhibit, index) in paginatedData" >' +
@@ -193,6 +193,7 @@ Vue.component('exhibit-list', {
       let l = this.records.length, s = this.size;
       return Math.ceil(l / s);
     },
+
     paginatedData() {
       this.records = this._exhibits;
       var _category = this.filters.category;
@@ -214,9 +215,11 @@ Vue.component('exhibit-list', {
       return this.records.slice(start, end);
     }
   },
+
   created: function () {
     // this.result = this._result;    
   },
+
   mounted: function () {
     // console.log(this.result);
   }
@@ -269,16 +272,23 @@ new Vue({
   },
 
   mounted: function () {
+    // var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
+    // var _sheet = 1;
+    // var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/od6/public/values?alt=json';
+    // //var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/od6/public/values?alt=json';
+    // //var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/' + _sheet + '/public/values?alt=json';
+    // console.log(_url);
     // $.getJSON(
-    //   'data/exhibits-data.json',
+    //   // 'data/exhibits-data.json',
+    //   _url,
     //   function (_data) {
-    //     this.animaltypes = _data.AnimalTypes
-    //     this.exhibits = _data.Exhibits
-    //     console.log(_data.Exhibits);
-    //     this.attrnames = _data.attrNameByLang
+    //     // this.animaltypes = _data.AnimalTypes
+    //     // this.exhibits = _data.Exhibits
+    //     console.log(_data);
+    //     // this.attrnames = _data.attrNameByLang
     //     // console.log(this.attrNameByLangs)
     //     // console.log(_data.attrNameByLang[0].tc + '==')
-    //     this.result = this.exhibits;
+    //     // this.result = this.exhibits;
     //   }.bind(this)
     // )
     // console.log(this.animaltypes);
@@ -288,21 +298,32 @@ new Vue({
     // this.animaltypes.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 2));
     // this.attrnames.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 3));
 
+
+
+
+
+
+
+
+
+
     var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
 
     _getGsData(_id, 2, function (_data) {
       this.animaltypes = _data;
-      console.log(_data);
+      // console.log(_data);
     }.bind(this));
+
     _getGsData(_id, 3, function (_data) {
       this.attrnames = _data;
-      console.log(_data);
+      // console.log(_data);
     }.bind(this));
+
     _getGsData(_id, 1, function (_data) {
       // console.log(_data);
       this.exhibits = _data;
-      console.log(_data);
-      this.result = this.exhibits;
+      // console.log(_data);
+      // this.result = this.exhibits;
     }.bind(this))
 
   },

@@ -9,16 +9,17 @@ $(function () {
 })
 
 function _getGsData(_id, _sheet, _callBack) {
-
   // var id = "1NcYqzx397HXmFwWhc5ro9N4-tzcbFKtqmLd6kIghh8Y";
   // https://docs.google.com/spreadsheets/d/e/2PACX-1vSuxzAWtaWqOZCwHgqmU8kGAFHEUKbZz5Qssx1fykW0NgikopV74p-jcZQFAAOExCGNqRcwpIsmCwMX/pubhtml
   // var id = "2PACX-1vSuxzAWtaWqOZCwHgqmU8kGAFHEUKbZz5Qssx1fykW0NgikopV74p-jcZQFAAOExCGNqRcwpIsmCwMX";
+  // http://cors.io/spreadsheets.google.com/feeds/list/0AtMEoZDi5-pedElCS1lrVnp0Yk1vbFdPaUlOc3F3a2c/od6/public/values?alt=json
   var id = _id;
   var sheet = _sheet;
+  // var url = 'https://spreadsheets.google.com/feeds/list/0AtMEoZDi5-pedElCS1lrVnp0Yk1vbFdPaUlOc3F3a2c/od6/public/values?alt=json-in-script&callback=x';
   var url = 'https://spreadsheets.google.com/feeds/list/' + id + '/' + sheet + '/public/values?alt=json';
   // var url = 'https://spreadsheets.google.com/feeds/list/' + id + '/od6/public/values?alt=json';
-  // var url = 'https://spreadsheets.google.com/feeds/list/' + id + '/' + sheet + '/public/values?alt=json';
   // var url = 'https://spreadsheets.google.com/feeds/cells/' + spreadsheetID + '/1/public/full?alt=json';
+
   var showRows = true;
   var showColumns = true;
   // var query = '&q=漁農自然護理署';
@@ -75,10 +76,7 @@ function _getGsData(_id, _sheet, _callBack) {
       if (showRows === true) {
         responseObj['rows'] = rows;
       }
-      // response.json(responseObj);
-      // console.log(responseObj['rows']);
       _callBack(responseObj['rows'])
-      // this.asdf = 'asdf';
     }.bind(this)
   )
 }
