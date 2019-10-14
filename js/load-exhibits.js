@@ -8,7 +8,32 @@ Vue.component('exhibit-list', {
     '  </div>' +
     ' </div>' +
     ' <div class="table" >' +
-    '  <div class="row" >' +
+    '  <template v-if="paginatedData.length > 0" >' +
+    '   <div class="row sorting" >' +
+    '     <div class="cell" >' +
+    //  '     {{this._result.length}}' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
+    '     </div> ' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
+    '     </div>' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Family\', dir)">Sort</button>' +
+    '     </div>' +
+    '     <div class="cell" >' +
+    '       <button v-on:click="sorting(\'Location\', dir)">Sort</button>' +
+    '     </div>' +
+    '   </div>' +
+    '  </template>' +
+    '  <div class="row filter" >' +
     '   <div class="cell" >' +
     '    <input class="filter" type="text" />' +
     '   </div>' +
@@ -31,26 +56,26 @@ Vue.component('exhibit-list', {
     '    <input class="filter" type="text" />' +
     '   </div>' +
     '  </div>' +
-    '  <div class="row" >' +
-    '   <div class="cell hd" >' +
+    '  <div class="row hd" >' +
+    '   <div class="cell " >' +
     '    No.' +
     '   </div>' +
-    '   <div class="cell hd" >' +
+    '   <div class="cell" >' +
     '    {{getAttrByLang(\'Exhibit Code\')}}' +
     '   </div>' +
-    '   <div class="cell hd" >' +
+    '   <div class="cell" >' +
     '    {{getAttrByLang(\'Taxa Code\')}}' +
     '   </div>' +
-    '   <div class="cell hd" >' +
+    '   <div class="cell" >' +
     '    {{getAttrByLang(\'Category\')}}' +
     '   </div>' +
-    '   <div class="cell hd" >' +
+    '   <div class="cell" >' +
     '    {{getAttrByLang(\'English Common Name\')}}' +
     '   </div>' +
-    '   <div class="cell hd" >' +
+    '   <div class="cell" >' +
     '    {{getAttrByLang(\'Family\') | capitalize}}' +
     '   </div>' +
-    '   <div class="cell hd" >' +
+    '   <div class="cell" >' +
     '    {{getAttrByLang(\'Location\')}}' +
     '   </div>' +
     '  </div>' +
@@ -79,31 +104,7 @@ Vue.component('exhibit-list', {
     '    </div>' +
     '   </div>' +
     '  </template>' +
-    '  <template v-if="paginatedData.length > 0" >' +
-    '   <div class="row" >' +
-    '     <div class="cell" >' +
-    //  '     {{this._result.length}}' +
-    '     </div> ' +
-    '     <div class="cell" >' +
-    '       <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
-    '     </div> ' +
-    '     <div class="cell" >' +
-    '       <button v-on:click="sorting(\'Taxa Code\', dir)">Sort</button>' +
-    '     </div> ' +
-    '     <div class="cell" >' +
-    '       <button v-on:click="sorting(\'Category\', dir)">Sort</button>' +
-    '     </div> ' +
-    '     <div class="cell" >' +
-    '       <button v-on:click="sorting(\'English Common Name\', dir)">Sort</button>' +
-    '     </div>' +
-    '     <div class="cell" >' +
-    '       <button v-on:click="sorting(\'Family\', dir)">Sort</button>' +
-    '     </div>' +
-    '     <div class="cell" >' +
-    '       <button v-on:click="sorting(\'Location\', dir)">Sort</button>' +
-    '     </div>' +
-    '   </div>' +
-    '  </template>' +
+
     ' </div>' +
     '</div>',
   data: function () {
@@ -180,7 +181,7 @@ Vue.component('exhibit-list', {
         this.dir = 1
         _dir = 1
       }
-      this._result.sort(function (a, b) {
+      this.records.sort(function (a, b) {
         if (a[_col] < b[_col]) return _dir * -1
         if (a[_col] > b[_col]) return _dir
         return 0

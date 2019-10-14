@@ -93,8 +93,20 @@ body {
       display: inline-block;
       display: table-cell;
       padding: $pad;
-      &.hd {
+    }
+    &.filter {
+      .cell {
+        padding: 1px $pad;
+      }
+    }
+    &.hd {
+      .cell {
         font-weight: bold;
+      }
+    }
+    &.sorting {
+      .cell {
+        padding: 1px $pad;
       }
     }
   }

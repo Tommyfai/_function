@@ -755,8 +755,16 @@ body a {
   padding: 10px;
 }
 
-.fn-grid .row .cell.hd {
+.fn-grid .row.filter .cell {
+  padding: 1px 10px;
+}
+
+.fn-grid .row.hd .cell {
   font-weight: bold;
+}
+
+.fn-grid .row.sorting .cell {
+  padding: 1px 10px;
 }
 
 .fn-grid.cols-04 .cell {
