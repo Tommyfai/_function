@@ -1,10 +1,19 @@
 Vue.component('exhibit-list', {
   template: '<div>' +
     ' <div class="paging" >' +
-    '  <div class="page-of">Page {{this.pageNumber}} of {{pageCount}}, Total: {{this.records.length}} </div>' +
+    '  <div class="page-of">' +
+    '  <select class="page-size" v-model="size" >' +
+    '   <option>5</option>' +
+    '   <option>10</option>' +
+    '   <option>15</option>' +
+    '   <option>20</option>' +
+    '  </select>' +
+    '   Page {{this.pageNumber + 1}} of {{pageCount}}, Total: {{this.records.length}} </div>' +
     '  <div class="btns">' +
-    '   <button :disabled="pageNumber === 0" @click="prevPage">Previous</button>' +
-    '   <button :disabled="pageNumber >= pageCount -1" @click="nextPage">Next</button>' +
+    '   <button class="first" :disabled="pageNumber == 0" @click="firstPage"></button>' +
+    '   <button class="previous" :disabled="pageNumber == 0" @click="previousPage"></button>' +
+    '   <button class="next" :disabled="pageNumber >= pageCount -1" @click="nextPage"></button>' +
+    '   <button class="last" :disabled="pageNumber >= pageCount -1" @click="lastPage"></button>' +
     '  </div>' +
     ' </div>' +
     ' <div class="table" >' +
@@ -118,14 +127,10 @@ Vue.component('exhibit-list', {
         taxacode: ''
       },
       records: [],
+      size: 5
     }
   },
   props: {
-    size: {
-      type: Number,
-      required: false,
-      default: 5
-    },
     animalTypes: {
       type: Array,
       required: true
@@ -151,11 +156,17 @@ Vue.component('exhibit-list', {
     }
   },
   methods: {
+    firstPage() {
+      this.pageNumber = 0;
+    },
+    previousPage() {
+      this.pageNumber--;
+    },
     nextPage() {
       this.pageNumber++;
     },
-    prevPage() {
-      this.pageNumber--;
+    lastPage() {
+      this.pageNumber = this.pageCount - 1;
     },
     getKeyById: function (_obj, _name) {
       return _obj[this.getAttrByLang(_name)]
@@ -190,7 +201,8 @@ Vue.component('exhibit-list', {
   },
   computed: {
     pageCount() {
-      let l = this.records.length, s = this.size;
+      let l = this.records.length;
+      let s = this.size;
       return Math.ceil(l / s);
     },
 
@@ -211,7 +223,9 @@ Vue.component('exhibit-list', {
         })
       }
       const start = this.pageNumber * this.size;
-      const end = start + this.size;
+      console.log(start)
+      const end = start + Number(this.size);
+      console.log(end)
       return this.records.slice(start, end);
     }
   },

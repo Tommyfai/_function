@@ -5,7 +5,7 @@ body {
   padding: 0px;
   margin: 0px;
   font-size: 14px;
-  font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', serif;
+  font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', Arial, serif;
   h1 {
     text-transform: uppercase;
     font-size: 18px;
@@ -62,11 +62,42 @@ body {
     display: block;
     text-align: right;
     .btns {
+      position: relative;
       display: inline-block;
       padding: $pad;
+      vertical-align: middle;
+      button {
+        $w: 20px;
+        @include border-radius(4px);
+        cursor: pointer;
+        border: 1px solid #999;
+        position: relative;
+        height: $w;
+        width: $w;
+        vertical-align: middle;
+        $triW: 6px;
+        $triH: 13px;
+        $triC: #999;
+        &.previous {
+          @include icon-arrow(left, $triH, $triW, $triC);
+        }
+        &.next {
+          @include icon-arrow(right, $triH, $triW, $triC);
+        }
+        &:disabled {
+          @include opacity(0.6);
+          cursor: default;
+        }
+      }
     }
     .page-of {
       display: inline-block;
+      vertical-align: middle;
+      .page-size {
+        vertical-align: middle;
+        @include border-radius(4px);
+        border: 1px solid #999;
+      }
     }
   }
   .table {
@@ -74,50 +105,76 @@ body {
     border: 1px solid #e5e5e5;
     display: table;
     width: 100%;
-  }
-
-  .row {
-    border: 1px solid red !important;
-    font-size: 0;
-    vertical-align: top;
-    display: table-row;
-    &:nth-of-type(odd) {
-      background-color: #f5f5f5;
-    }
-    &:nth-of-type(even) {
-      background-color: #fff;
-    }
-    .cell {
-      font-size: 1rem;
+    .row {
+      font-size: 0;
       vertical-align: top;
-      display: inline-block;
-      display: table-cell;
-      padding: $pad;
-    }
-    &.filter {
-      .cell {
-        padding: 1px $pad;
+      @include tablet- {
+        display: table-row;
       }
-    }
-    &.hd {
-      .cell {
-        font-weight: bold;
+      &:nth-of-type(odd) {
+        background-color: #f5f5f5;
       }
-    }
-    &.sorting {
-      .cell {
-        padding: 1px $pad;
+      &:nth-of-type(even) {
+        background-color: #fff;
       }
-    }
-  }
-  &.cols-04 {
-    .cell {
-      width: 25%;
-    }
-  }
-  &.cols-05 {
-    .cell {
-      width: 20%;
+      .cell {
+        @include box-sizing();
+        font-size: 1rem;
+        vertical-align: top;
+        padding: $pad;
+        @include tablet- {
+          display: table-cell;
+        }
+        @include mobile {
+          display: inline-block;
+          &:nth-of-type(1) {
+            font-weight: bold;
+            width: 20%;
+          }
+          &:nth-of-type(2) {
+            width: 40%;
+          }
+          &:nth-of-type(3) {
+            width: 40%;
+          }
+          &:nth-of-type(4) {
+            width: 30%;
+          }
+          &:nth-of-type(5) {
+            width: 70%;
+          }
+          &:nth-of-type(6) {
+            width: 50%;
+          }
+          &:nth-of-type(7) {
+            width: 50%;
+          }
+        }
+      }
+      &.filter {
+        @include mobile {
+          display: none;
+        }
+        .cell {
+          padding: 1px $pad;
+        }
+      }
+      &.hd {
+        @include mobile {
+          display: none;
+        }
+        .cell {
+          font-weight: bold;
+        }
+      }
+      &.sorting {
+        @include mobile {
+          display: none;
+        }
+        .cell {
+          padding: 1px $pad;
+        }
+      }
     }
   }
 }

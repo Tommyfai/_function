@@ -501,36 +501,6 @@ input {
   }
 }
 
-@mixin icon-arrow($direction: up, $width: 50px, $height: 20px, $color: #ccc) {
-  // @include icon-arrow(up, 50px, 20px, #ccc);
-  @include float(centerMiddle);
-  font-size: 0px;
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  margin: 0px;
-  @if ($direction == up) {
-    border-left: ($width / 2) solid transparent;
-    border-right: ($width / 2) solid transparent;
-    border-bottom: $height solid $color;
-  }
-  @if ($direction == down) {
-    border-left: ($width / 2) solid transparent;
-    border-right: ($width / 2) solid transparent;
-    border-top: $height solid $color;
-  }
-  @if ($direction == right) {
-    border-top: ($width / 2) solid transparent;
-    border-bottom: ($width / 2) solid transparent;
-    border-left: $height solid $color;
-  }
-  @if ($direction == left) {
-    border-top: ($width / 2) solid transparent;
-    border-bottom: ($width / 2) solid transparent;
-    border-right: $height solid $color;
-  }
-}
-
 @mixin chinese {
   body.lang-tc &,
   body.lang-sc & {
