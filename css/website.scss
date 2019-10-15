@@ -5,6 +5,9 @@ body {
   padding: 0px;
   margin: 0px;
   font-size: 14px;
+  @include mobile {
+    font-size: 12px;
+  }
   font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', Arial, serif;
   h1 {
     text-transform: uppercase;
@@ -108,7 +111,10 @@ body {
     .row {
       font-size: 0;
       vertical-align: top;
-      @include tablet- {
+      @include mobile {
+        padding: $pad;
+      }
+      @include mobile- {
         display: table-row;
       }
       &:nth-of-type(odd) {
@@ -122,10 +128,12 @@ body {
         font-size: 1rem;
         vertical-align: top;
         padding: $pad;
-        @include tablet- {
+        @include mobile- {
           display: table-cell;
         }
         @include mobile {
+          padding-top: $pad / 2;
+          padding-bottom: $pad / 2;
           display: inline-block;
           &:nth-of-type(1) {
             font-weight: bold;

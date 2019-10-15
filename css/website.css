@@ -643,6 +643,13 @@ body {
   font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', Arial, serif;
 }
 
+@media (max-width: 768px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
+
 html h1,
 body h1 {
   text-transform: uppercase;
@@ -807,7 +814,13 @@ body a {
   vertical-align: top;
 }
 
-@media (min-width: 993px) {
+@media (max-width: 768px) {
+  .fn-grid .table .row {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 769px) {
   .fn-grid .table .row {
     display: table-row;
   }
@@ -830,7 +843,7 @@ body a {
   padding: 10px;
 }
 
-@media (min-width: 993px) {
+@media (min-width: 769px) {
   .fn-grid .table .row .cell {
     display: table-cell;
   }
@@ -838,6 +851,8 @@ body a {
 
 @media (max-width: 768px) {
   .fn-grid .table .row .cell {
+    padding-top: 5px;
+    padding-bottom: 5px;
     display: inline-block;
   }
   .fn-grid .table .row .cell:nth-of-type(1) {
