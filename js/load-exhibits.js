@@ -1,19 +1,25 @@
 Vue.component('exhibit-list', {
   template: '<div>' +
     ' <div class="paging" >' +
-    '  <div class="page-of">' +
+    '  <div class="page-of">Size' +
     '  <select class="page-size" v-model="size" >' +
     '   <option>5</option>' +
     '   <option>10</option>' +
     '   <option>15</option>' +
     '   <option>20</option>' +
     '  </select>' +
-    '   Page {{this.pageNumber + 1}} of {{pageCount}}, Total: {{this.records.length}} </div>' +
+    '   Page ' +
+    '  <select class="page-current" v-model="pageNumber" >' +
+    '   <template v-for="(page, index) in pageCount" >' +
+    '    <option>{{index + 1}}</option>' +
+    '   </template>' +
+    '  </select>' +
+    ' of {{pageCount}}, Total: {{this.records.length}} </div>' +
     '  <div class="btns">' +
-    '   <button class="first" :disabled="pageNumber == 0" @click="firstPage"></button>' +
-    '   <button class="previous" :disabled="pageNumber == 0" @click="previousPage"></button>' +
-    '   <button class="next" :disabled="pageNumber >= pageCount -1" @click="nextPage"></button>' +
-    '   <button class="last" :disabled="pageNumber >= pageCount -1" @click="lastPage"></button>' +
+    '   <button class="first" :disabled="pageNumber <= 1" @click="firstPage"></button>' +
+    '   <button class="previous" :disabled="pageNumber <= 1" @click="previousPage"></button>' +
+    '   <button class="next" :disabled="pageNumber >= pageCount" @click="nextPage"></button>' +
+    '   <button class="last" :disabled="pageNumber >= pageCount" @click="lastPage"></button>' +
     '  </div>' +
     ' </div>' +
     ' <div class="table" >' +
@@ -91,7 +97,7 @@ Vue.component('exhibit-list', {
     '  <template v-for="(exhibit, index) in paginatedData" >' +
     '   <div class="row" >' +
     '    <div class="cell" >' +
-    '     {{size * pageNumber + index + 1}}' +
+    '     {{(pageNumber - 1) * size  + index + 1}}' +
     '    </div>' +
     '    <div class="cell" >' +
     '     {{getKeyById(exhibit, \'Exhibit Code\')}}' +
@@ -118,7 +124,7 @@ Vue.component('exhibit-list', {
     '</div>',
   data: function () {
     return {
-      pageNumber: 0,
+      pageNumber: 1,
       sortColumn: '',
       dir: 1,
       typeSelected: 'all',
@@ -157,7 +163,7 @@ Vue.component('exhibit-list', {
   },
   methods: {
     firstPage() {
-      this.pageNumber = 0;
+      this.pageNumber = 1;
     },
     previousPage() {
       this.pageNumber--;
@@ -166,7 +172,7 @@ Vue.component('exhibit-list', {
       this.pageNumber++;
     },
     lastPage() {
-      this.pageNumber = this.pageCount - 1;
+      this.pageNumber = this.pageCount;
     },
     getKeyById: function (_obj, _name) {
       return _obj[this.getAttrByLang(_name)]
@@ -203,7 +209,11 @@ Vue.component('exhibit-list', {
     pageCount() {
       let l = this.records.length;
       let s = this.size;
-      return Math.ceil(l / s);
+      var _return = Math.ceil(l / s);
+      if (this.pageNumber > _return) {
+        this.pageNumber = 1;
+      }
+      return _return;
     },
 
     paginatedData() {
@@ -222,10 +232,10 @@ Vue.component('exhibit-list', {
           return (value[_keyName].toLowerCase().indexOf(_taxacode.toLowerCase()) != -1);
         })
       }
-      const start = this.pageNumber * this.size;
-      console.log(start)
+      const start = (this.pageNumber - 1) * this.size;
+      // console.log(start)
       const end = start + Number(this.size);
-      console.log(end)
+      // console.log(end)
       return this.records.slice(start, end);
     }
   },
@@ -337,7 +347,6 @@ new Vue({
       // console.log(_data);
       this.exhibits = _data;
       // console.log(_data);
-      // this.result = this.exhibits;
     }.bind(this))
 
   },

@@ -639,7 +639,7 @@ html,
 body {
   padding: 0px;
   margin: 0px;
-  font-size: 14px;
+  font-size: 13px;
   font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', Arial, serif;
 }
 
@@ -757,7 +757,7 @@ body a {
   margin: 0px;
   border-top: 6.5px solid transparent;
   border-bottom: 6.5px solid transparent;
-  border-right: 6px solid #999;
+  border-right: 6px solid #5f5f5f;
 }
 
 .fn-grid .paging .btns button.next::before {
@@ -779,7 +779,7 @@ body a {
   margin: 0px;
   border-top: 6.5px solid transparent;
   border-bottom: 6.5px solid transparent;
-  border-left: 6px solid #999;
+  border-left: 6px solid #5f5f5f;
 }
 
 .fn-grid .paging .btns button:disabled {
@@ -794,10 +794,11 @@ body a {
   vertical-align: middle;
 }
 
+.fn-grid .paging .page-of .page-current,
 .fn-grid .paging .page-of .page-size {
+  border: 1px solid #999;
   vertical-align: middle;
   border-radius: 4px;
-  border: 1px solid #999;
 }
 
 .fn-grid .table {
@@ -816,7 +817,12 @@ body a {
 
 @media (max-width: 768px) {
   .fn-grid .table .row {
-    padding: 10px;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+    -ms-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -832,6 +838,12 @@ body a {
 
 .fn-grid .table .row:nth-of-type(even) {
   background-color: #fff;
+}
+
+@media (max-width: 768px) {
+  .fn-grid .table .row {
+    background-color: #f89807 !important;
+  }
 }
 
 .fn-grid .table .row .cell {
@@ -851,30 +863,37 @@ body a {
 
 @media (max-width: 768px) {
   .fn-grid .table .row .cell {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     display: inline-block;
   }
   .fn-grid .table .row .cell:nth-of-type(1) {
     font-weight: bold;
     width: 20%;
+    background-color: #fccc83;
   }
   .fn-grid .table .row .cell:nth-of-type(2) {
     width: 40%;
+    background-color: #fab956;
   }
   .fn-grid .table .row .cell:nth-of-type(3) {
     width: 40%;
+    background-color: #f9ad39;
   }
   .fn-grid .table .row .cell:nth-of-type(4) {
     width: 30%;
+    background-color: #fab143;
   }
   .fn-grid .table .row .cell:nth-of-type(5) {
     width: 70%;
+    background-color: #f9a425;
   }
   .fn-grid .table .row .cell:nth-of-type(6) {
     width: 50%;
+    background-color: #f9a220;
   }
   .fn-grid .table .row .cell:nth-of-type(7) {
+    background-color: #f89807;
     width: 50%;
   }
 }

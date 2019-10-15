@@ -4,7 +4,7 @@ html,
 body {
   padding: 0px;
   margin: 0px;
-  font-size: 14px;
+  font-size: 13px;
   @include mobile {
     font-size: 12px;
   }
@@ -80,7 +80,7 @@ body {
         vertical-align: middle;
         $triW: 6px;
         $triH: 13px;
-        $triC: #999;
+        $triC: #5f5f5f;
         &.previous {
           @include icon-arrow(left, $triH, $triW, $triC);
         }
@@ -96,10 +96,11 @@ body {
     .page-of {
       display: inline-block;
       vertical-align: middle;
+      .page-current,
       .page-size {
+        border: 1px solid #999;
         vertical-align: middle;
         @include border-radius(4px);
-        border: 1px solid #999;
       }
     }
   }
@@ -109,10 +110,14 @@ body {
     display: table;
     width: 100%;
     .row {
+      $bgX: #f89807;
       font-size: 0;
       vertical-align: top;
       @include mobile {
-        padding: $pad;
+        margin: $pad;
+        overflow: hidden;
+        @include border-radius(6px);
+        @include box-shadow(0px 0px 6px rgba(0, 0, 0, 0.4));
       }
       @include mobile- {
         display: table-row;
@@ -123,6 +128,9 @@ body {
       &:nth-of-type(even) {
         background-color: #fff;
       }
+      @include mobile {
+        background-color: $bgX !important;
+      }
       .cell {
         @include box-sizing();
         font-size: 1rem;
@@ -132,29 +140,37 @@ body {
           display: table-cell;
         }
         @include mobile {
-          padding-top: $pad / 2;
-          padding-bottom: $pad / 2;
+          padding-top: $pad * 0.7;
+          padding-bottom: $pad * 0.7;
           display: inline-block;
           &:nth-of-type(1) {
             font-weight: bold;
             width: 20%;
+            background-color: lighten($bgX, 25%);
           }
           &:nth-of-type(2) {
             width: 40%;
+            background-color: lighten($bgX, 16%);
           }
           &:nth-of-type(3) {
             width: 40%;
+            background-color: lighten($bgX, 10%);
           }
           &:nth-of-type(4) {
             width: 30%;
+            background-color: lighten($bgX, 12%);
           }
           &:nth-of-type(5) {
             width: 70%;
+            background-color: lighten($bgX, 6%);
           }
           &:nth-of-type(6) {
             width: 50%;
+            background-color: lighten($bgX, 5%);
           }
           &:nth-of-type(7) {
+            background-color: lighten($bgX, 0%);
+            // @include block-ellipsis(1, 10);
             width: 50%;
           }
         }
