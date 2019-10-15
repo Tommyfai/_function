@@ -650,6 +650,11 @@ body {
   }
 }
 
+html button,
+body button {
+  cursor: pointer;
+}
+
 html h1,
 body h1 {
   text-transform: uppercase;
@@ -760,6 +765,33 @@ body a {
   border-right: 6px solid #5f5f5f;
 }
 
+.fn-grid .paging .btns button.previous:after {
+  content: "Previous";
+  -webkit-transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  zoom: 1;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: absolute;
+  top: 0px;
+  font-size: 0.8rem;
+}
+
+.fn-grid .paging .btns button.previous:hover:after {
+  top: -18px;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  zoom: 1;
+}
+
 .fn-grid .paging .btns button.next::before {
   content: '';
   position: absolute;
@@ -782,6 +814,131 @@ body a {
   border-left: 6px solid #5f5f5f;
 }
 
+.fn-grid .paging .btns button.next:after {
+  content: "Next";
+  -webkit-transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  zoom: 1;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: absolute;
+  top: 0px;
+  font-size: 0.8rem;
+}
+
+.fn-grid .paging .btns button.next:hover:after {
+  top: -18px;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  zoom: 1;
+}
+
+.fn-grid .paging .btns button.first::before {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 0px;
+  width: 0px;
+  height: 0px;
+  margin: 0px;
+  border-top: 6.5px solid transparent;
+  border-bottom: 6.5px solid transparent;
+  border-right: 6px solid #5f5f5f;
+}
+
+.fn-grid .paging .btns button.first:after {
+  content: "First";
+  -webkit-transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  zoom: 1;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: absolute;
+  top: 0px;
+  font-size: 0.8rem;
+}
+
+.fn-grid .paging .btns button.first:hover:after {
+  top: -18px;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  zoom: 1;
+}
+
+.fn-grid .paging .btns button.last::before {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 0px;
+  width: 0px;
+  height: 0px;
+  margin: 0px;
+  border-top: 6.5px solid transparent;
+  border-bottom: 6.5px solid transparent;
+  border-left: 6px solid #5f5f5f;
+}
+
+.fn-grid .paging .btns button.last:after {
+  content: "Last";
+  -webkit-transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  zoom: 1;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: absolute;
+  top: 0px;
+  font-size: 0.8rem;
+}
+
+.fn-grid .paging .btns button.last:hover:after {
+  top: -18px;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  zoom: 1;
+}
+
 .fn-grid .paging .btns button:disabled {
   opacity: 0.6;
   filter: alpha(opacity=60);
@@ -799,6 +956,33 @@ body a {
   border: 1px solid #999;
   vertical-align: middle;
   border-radius: 4px;
+}
+
+.fn-grid .paging .page-of .page-size:after {
+  content: "Previous";
+  -webkit-transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  transition: all 0.2s cubic-bezier(0.94, 0.06, 0.05, 0.95) 0s;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  zoom: 1;
+  position: absolute;
+  margin: 0px;
+  width: auto;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  position: absolute;
+  top: 0px;
+  font-size: 0.8rem;
+}
+
+.fn-grid .paging .page-of .page-size:hover:after {
+  top: -18px;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  zoom: 1;
 }
 
 .fn-grid .table {
@@ -842,7 +1026,7 @@ body a {
 
 @media (max-width: 768px) {
   .fn-grid .table .row {
-    background-color: #f89807 !important;
+    background-color: #fc0 !important;
   }
 }
 
@@ -870,30 +1054,30 @@ body a {
   .fn-grid .table .row .cell:nth-of-type(1) {
     font-weight: bold;
     width: 20%;
-    background-color: #fccc83;
+    background-color: #ffe680;
   }
   .fn-grid .table .row .cell:nth-of-type(2) {
     width: 40%;
-    background-color: #fab956;
+    background-color: #ffdc52;
   }
   .fn-grid .table .row .cell:nth-of-type(3) {
     width: 40%;
-    background-color: #f9ad39;
+    background-color: #ffd633;
   }
   .fn-grid .table .row .cell:nth-of-type(4) {
     width: 30%;
-    background-color: #fab143;
+    background-color: #ffd83d;
   }
   .fn-grid .table .row .cell:nth-of-type(5) {
     width: 70%;
-    background-color: #f9a425;
+    background-color: #ffd21f;
   }
   .fn-grid .table .row .cell:nth-of-type(6) {
     width: 50%;
-    background-color: #f9a220;
+    background-color: #ffd11a;
   }
   .fn-grid .table .row .cell:nth-of-type(7) {
-    background-color: #f89807;
+    background-color: #ffcc00;
     width: 50%;
   }
 }

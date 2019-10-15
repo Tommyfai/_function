@@ -26,7 +26,6 @@ Vue.component('exhibit-list', {
     '  <template v-if="paginatedData.length > 0" >' +
     '   <div class="row sorting" >' +
     '     <div class="cell" >' +
-    //  '     {{this._result.length}}' +
     '     </div> ' +
     '     <div class="cell" >' +
     '       <button v-on:click="sorting(\'Exhibit Code\', dir)">Sort</button>' +
@@ -254,9 +253,9 @@ new Vue({
   data: {
     animaltypes: [],
     exhibits: [],
-    attrnames: [],
     result: [],
-    lang: 'en',
+    attrnames: [],
+    lang: 'tc',
     sortColumn: '',
     dir: 1
   },
@@ -282,20 +281,13 @@ new Vue({
 
     setLang: function (_lang) {
       this.lang = _lang
-    },
-
-    getAttrByLang: function (_name) {
-      var _lang = this.lang
-      this.attrNames.map(function (value) {
-        if (value.en.toLowerCase() == _name) {
-          console.log(value[_lang])
-          return value[_lang]
-        }
-      })
     }
   },
+  computed: {
 
+  },
   mounted: function () {
+
     // var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
     // var _sheet = 1;
     // var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/od6/public/values?alt=json';
@@ -346,12 +338,11 @@ new Vue({
     _getGsData(_id, 1, function (_data) {
       // console.log(_data);
       this.exhibits = _data;
-      // console.log(_data);
+      this.result = this.exhibits;
     }.bind(this))
-
   },
   created: function () {
-    //this.result = this.exhibits;
+
   },
 })
 

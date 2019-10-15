@@ -9,6 +9,9 @@ body {
     font-size: 12px;
   }
   font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', Arial, serif;
+  button {
+    cursor: pointer;
+  }
   h1 {
     text-transform: uppercase;
     font-size: 18px;
@@ -45,6 +48,25 @@ body {
   text-align: right;
   padding: 10px;
 }
+
+@mixin float-label($text: 'text') {
+  &:after {
+    content: $text;
+    @include transition();
+    @include opacity(0);
+    @include float(center);
+    position: absolute;
+    top: 0px;
+    font-size: 0.8rem;
+  }
+  &:hover {
+    &:after {
+      top: -18px;
+      @include opacity(1);
+    }
+  }
+}
+
 .fn-grid {
   $pad: 10px;
   // font-size: 0;
@@ -83,9 +105,19 @@ body {
         $triC: #5f5f5f;
         &.previous {
           @include icon-arrow(left, $triH, $triW, $triC);
+          @include float-label('Previous');
         }
         &.next {
           @include icon-arrow(right, $triH, $triW, $triC);
+          @include float-label('Next');
+        }
+        &.first {
+          @include icon-arrow(left, $triH, $triW, $triC);
+          @include float-label('First');
+        }
+        &.last {
+          @include icon-arrow(right, $triH, $triW, $triC);
+          @include float-label('Last');
         }
         &:disabled {
           @include opacity(0.6);
@@ -102,6 +134,11 @@ body {
         vertical-align: middle;
         @include border-radius(4px);
       }
+      .page-size {
+        // position: relative;
+        // border: 10px solid #999;
+        @include float-label('Previous');
+      }
     }
   }
   .table {
@@ -110,7 +147,8 @@ body {
     display: table;
     width: 100%;
     .row {
-      $bgX: #f89807;
+      // $bgX: #f89807;
+      $bgX: #fc0;
       font-size: 0;
       vertical-align: top;
       @include mobile {

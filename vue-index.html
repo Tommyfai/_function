@@ -25,14 +25,12 @@
         <!-- <button v-on:click="getAttrByLang('location')">getAttrName</button> -->
       </div>
       <div class="fn-grid">
-        <!-- <list-paging :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-paging> -->
-        <exhibit-list :animal-types="animaltypes" :_exhibits="exhibits" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
-        <!-- <list-sort :animal-types="animaltypes" :_exhibits="exhibits" :list-data="result" :_result="result" :_lang="lang" :_attrnames="attrnames"></list-sort> -->
+        <exhibit-list :animal-types="animaltypes" :_exhibits="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
       </div>
       <div>
         <button v-on:click="searchData('reset')">Reset</button>
         <button v-on:click="searchData('all')">Show All</button>
-        <button v-on:click="searchData('animaltype','Herptile')">Search Herptile</button>
+        <button v-on:click="searchData('animaltype','Herptile')">Search 兩棲及爬行類</button>
       </div>
     </div>
     <!-- <script src="./js/components.js"></script> -->
