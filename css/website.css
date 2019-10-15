@@ -1001,7 +1001,7 @@ body a {
 
 @media (max-width: 768px) {
   .fn-grid .table .row {
-    margin: 10px;
+    margin: 13px 10px;
     overflow: hidden;
     border-radius: 6px;
     -webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
