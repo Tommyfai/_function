@@ -6,14 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>_function</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script type="text/javascript" src="js/function.js"></script>
     <link rel="stylesheet" href="css/website.css" />
   </head>
 
   <body>
-    <div id="root2">
+    <div id="rootApp">
+      <h1>Hello App!</h1>
+      <p>
+        <router-link to="/home">Home</router-link>
+        <router-link to="/setting">Setting</router-link>
+        <router-link to="/setting/user">User</router-link>
+        <router-link to="/setting/role">Role</router-link>
+        <router-link to="/setting/system">System</router-link>
+      </p>
+      <div>
+        <router-view></router-view>
+      </div>
       <!-- <div>
         <button v-on:click="sorting('English Common Name')">Sort English Common Name</button>
         <button v-on:click="sorting('Exhibit Code')">Sort Exhibit Code</button>
@@ -27,14 +40,15 @@
       <div class="fn-grid">
         <exhibit-list :animal-types="animaltypes" :_exhibits="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
       </div>
+      d
+      <v-header :_lang="lang"></v-header>
+      <Address></Address>
       <div>
         <button v-on:click="searchData('reset')">Reset</button>
         <button v-on:click="searchData('all')">Show All</button>
         <button v-on:click="searchData('animaltype','Herptile')">Search 兩棲及爬行類</button>
       </div>
     </div>
-    <!-- <script src="./js/components.js"></script> -->
-    <!-- <script src="./js/vue-index.js"></script> -->
-    <script src="./js/load-exhibits.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 Vue.component('exhibit-list', {
   template: '<div>' +
+    'a {{username}} a' +
     ' <div class="paging" >' +
     '  <div class="page-of">Size' +
     '  <select class="page-size" v-model="size" >' +
@@ -205,6 +206,10 @@ Vue.component('exhibit-list', {
     }
   },
   computed: {
+    username() {
+      // console.log(this.$route.params.username)
+      return this.$route.params.username
+    },
     pageCount() {
       let l = this.records.length;
       let s = this.size;
@@ -214,7 +219,6 @@ Vue.component('exhibit-list', {
       }
       return _return;
     },
-
     paginatedData() {
       this.records = this._exhibits;
       var _category = this.filters.category;
@@ -249,7 +253,8 @@ Vue.component('exhibit-list', {
 })
 
 new Vue({
-  el: '#root2',
+  el: '#rootApp',
+  router,
   data: {
     animaltypes: [],
     exhibits: [],

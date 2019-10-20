@@ -5,9 +5,15 @@
 
 - Sorting arrow
 
-- consolidate as an object
+- Consolidate (WS) as an object
 
 - filter | Pine
 
+- vue router
 
+- state management
+
+- real-time export json as sub-data
+
+- define component of header, footer, side menu, top menu
 
