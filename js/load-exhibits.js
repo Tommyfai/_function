@@ -1,6 +1,6 @@
 Vue.component('exhibit-list', {
-  template: '<div>' +
-    'a {{username}} a' +
+  template: '<div class="fn-grid">' +
+    // '{{username}}' +
     ' <div class="paging" >' +
     '  <div class="page-of">Size' +
     '   <select class="page-size" v-model="size" >' +
@@ -15,7 +15,7 @@ Vue.component('exhibit-list', {
     '     <option>{{index + 1}}</option>' +
     '    </template>' +
     '   </select>' +
-    ' of {{pageCount}}, Total: {{records.length}} ' +
+    ' of {{pageCount}}, Total: {{resultSet.length}} ' +
     '  </div>' +
     '  <div class="btns">' +
     '   <button class="first" :disabled="pageNumber <= 1" @click="firstPage"></button>' +
@@ -122,6 +122,13 @@ Vue.component('exhibit-list', {
     '  </template>' +
 
     ' </div>' +
+
+    ' <div>' +
+    '  <button v-on:click="searchData(\'reset\')">Reset</button>' +
+    '  <button v-on:click="searchData(\'all\')">Show All</button>' +
+    '  <button v-on:click="searchData(\'animaltype\',\'Herptile\')">Search 兩棲及爬行類</button>' +
+    ' </div>' +
+
     '</div>',
   data: function () {
     return {
@@ -133,23 +140,25 @@ Vue.component('exhibit-list', {
         category: '',
         taxacode: ''
       },
-      records: [],
+      resultSet: [],
+      exhibits: [],
+      attrnames: [],
       size: 5
     }
   },
   props: {
-    animalTypes: {
-      type: Array,
-      required: true
-    },
-    _exhibits: {
-      type: Array,
-      required: true
-    },
-    _attrnames: {
-      type: Array,
-      required: true
-    },
+    // animalTypes: {
+    //   type: Array,
+    //   required: true
+    // },
+    // _exhibits: {
+    //   type: Array,
+    //   required: true
+    // },
+    // _attrnames: {
+    //   type: Array,
+    //   required: true
+    // },
     _lang: {
       type: String,
       required: true
@@ -181,7 +190,7 @@ Vue.component('exhibit-list', {
     getAttrByLang: function (_name) {
       var _lang = this._lang
       var _return;
-      this._attrnames.map(function (value) {
+      this.attrnames.map(function (value) {
         if (value.id.toLowerCase() == _name.toLowerCase()) {
           _return = value[_lang]
         }
@@ -199,12 +208,23 @@ Vue.component('exhibit-list', {
         this.dir = 1
         _dir = 1
       }
-      this.records.sort(function (a, b) {
+      this.resultSet.sort(function (a, b) {
         if (a[_col] < b[_col]) return _dir * -1
         if (a[_col] > b[_col]) return _dir
         return 0
       })
-    }
+    },
+    searchData: function (_type, _value) {
+      this.resultSet = []
+      if (_type == 'all') {
+        this.resultSet = this.exhibits
+      } else {
+        console.log(_value)
+        this.resultSet = this.exhibits.filter(function (value, index, array) {
+          return value.category == _value;
+        })
+      }
+    },
   },
   computed: {
     username: function () {
@@ -212,7 +232,7 @@ Vue.component('exhibit-list', {
       return this.$route.params.username
     },
     pageCount: function () {
-      let l = this.records.length;
+      let l = this.resultSet.length;
       let s = this.size;
       var _return = Math.ceil(l / s);
       if (this.pageNumber > _return) {
@@ -221,18 +241,18 @@ Vue.component('exhibit-list', {
       return _return;
     },
     paginatedData: function () {
-      this.records = this._exhibits;
+      // this.resultSet = this._exhibits;
       var _category = this.filters.category;
       var _taxacode = this.filters.taxacode;
       if (_category != '') {
         _keyName = this.getAttrByLang('Category');
-        this.records = this.records.filter(function (value, index, array) {
+        this.resultSet = this.resultSet.filter(function (value, index, array) {
           return (value[_keyName].toLowerCase().indexOf(_category.toLowerCase()) != -1);
         })
       }
       if (_taxacode != '') {
         _keyName = this.getAttrByLang('Taxa Code');
-        this.records = this.records.filter(function (value, index, array) {
+        this.resultSet = this.resultSet.filter(function (value, index, array) {
           return (value[_keyName].toLowerCase().indexOf(_taxacode.toLowerCase()) != -1);
         })
       }
@@ -240,7 +260,7 @@ Vue.component('exhibit-list', {
       // console.log(start)
       const end = start + Number(this.size);
       // console.log(end)
-      return this.records.slice(start, end);
+      return this.resultSet.slice(start, end);
     }
   },
 
@@ -249,86 +269,7 @@ Vue.component('exhibit-list', {
   },
 
   mounted: function () {
-    // console.log(this.result);
-  }
-})
-
-new Vue({
-  el: '#rootApp',
-  router: router,
-  data: {
-    animaltypes: [],
-    exhibits: [],
-    result: [],
-    attrnames: [],
-    lang: 'tc',
-    sortColumn: '',
-    dir: 1
-  },
-  components: {},
-  methods: {
-    searchData: function (_type, _value) {
-      this.result = []
-      if (_type == 'all') {
-        this.result = this.exhibits
-      } else {
-        console.log(_value)
-        this.result = this.exhibits.filter(function (value, index, array) {
-          return value.category == _value;
-        })
-      }
-    },
-
-    removeData: function (_num) {
-      console.log(_num)
-      this.exhibits.splice(_num - 1, 1)
-      this.animaltypes.splice(_num - 1, 1)
-    },
-
-    setLang: function (_lang) {
-      this.lang = _lang
-    }
-  },
-  computed: {
-
-  },
-  mounted: function () {
-
-    // var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
-    // var _sheet = 1;
-    // var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/od6/public/values?alt=json';
-    // //var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/od6/public/values?alt=json';
-    // //var _url = 'https://spreadsheets.google.com/feeds/list/' + _id + '/' + _sheet + '/public/values?alt=json';
-    // console.log(_url);
-    // $.getJSON(
-    //   // 'data/exhibits-data.json',
-    //   _url,
-    //   function (_data) {
-    //     // this.animaltypes = _data.AnimalTypes
-    //     // this.exhibits = _data.Exhibits
-    //     console.log(_data);
-    //     // this.attrnames = _data.attrNameByLang
-    //     // console.log(this.attrNameByLangs)
-    //     // console.log(_data.attrNameByLang[0].tc + '==')
-    //     // this.result = this.exhibits;
-    //   }.bind(this)
-    // )
-    // console.log(this.animaltypes);
-
-    // _getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 1)
-    // this.exhibits.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 1));
-    // this.animaltypes.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 2));
-    // this.attrnames.push(_getGsData('1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ', 3));
-
-
-
-
-
-
-
-
-
-
+    console.log('this.result');
     var _id = '1Mx5Tbh0TFygWJyczTlYxP1EaOHm-5X8Vm9NLfzQ60qQ';
 
     _getGsData(_id, 2, function (_data) {
@@ -338,17 +279,15 @@ new Vue({
 
     _getGsData(_id, 3, function (_data) {
       this.attrnames = _data;
+      // this.attrnames = _data;
       // console.log(_data);
     }.bind(this));
 
     _getGsData(_id, 1, function (_data) {
       // console.log(_data);
+      this.resultSet = _data
       this.exhibits = _data;
-      this.result = this.exhibits;
+      // this.result = this.exhibits;
     }.bind(this))
-  },
-  created: function () {
-
-  },
+  }
 })
-

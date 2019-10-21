@@ -1,13 +1,15 @@
 
 const Foo = { template: '<div>foo{{ $route.params.id }}</div>' }
-const Bar = { template: '<div>    bar                    {{ $route.params.id }}  </div> ' }
-const Home = { template: '  <div>home    <div>home</div>      <div>home</div>  </div>' }
-const Product = { template: '<div>Product</div>' }
+const Bar = { template: '<div>bar{{$route.params.id}}</div>' }
+
+const Home = { template: '<homepage/>' }
+const Product = { template: '<div>Product<router-view/></div>' }
 const ProductCreate = { template: '<div>ProductCreate</div>' }
-const ProdcutSeach = { template: '<div>ProdcutSeach</div>' }
+const ProdcutSeach = { template: '<div>ProductSearch<router-view/></div>' }
 const ProductSearchResult = { template: '<div>ProductSearchResult</div>' }
 
-const Setting = { template: '<div>Setting      <div><router-view></router-view></div>    </div>' }
+const Setting = { template: '<div>Setting <div><router-view/></div> </div>' }
+const Exhibit = { template: '<div>Exhibit  <exhibit :_lang="\'en\'" ></exhibit> </div>' }
 const User = { template: '<div>User</div>' }
 const Role = { template: '<div>Role</div>' }
 const System = { template: '<div>System</div>' }
@@ -18,18 +20,25 @@ const routes = [
     path: '/product',
     component: Product,
     children: [
-      { path: '/product/create', component: ProductCreate },
+      { path: 'create', component: ProductCreate },
       {
         path: 'search',
         component: ProdcutSeach,
-        children: [{ path: 'result', component: ProductSearchResult }]
+        children: [
+          { path: 'result', component: ProductSearchResult }
+        ]
       }
     ]
   },
   {
     path: '/setting',
     component: Setting,
-    children: [{ path: 'user', component: User }, { path: 'role', component: Role }, { path: 'system', component: System }]
+    children: [
+      { path: 'user', component: User },
+      { path: 'role', component: Role },
+      { path: 'exhibit', component: Exhibit },
+      { path: 'system', component: System }
+    ]
   },
   { path: '/setting/user', component: User },
   { path: '/setting/role', component: Role },

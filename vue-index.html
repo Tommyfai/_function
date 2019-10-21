@@ -16,38 +16,20 @@
 
   <body>
     <div id="rootApp">
-      <h1>Hello App!</h1>
-      <p>
-        <router-link to="/home">Home</router-link>
-        <router-link to="/setting">Setting</router-link>
-        <router-link to="/setting/user">User</router-link>
-        <router-link to="/setting/role">Role</router-link>
-        <router-link to="/setting/system">System</router-link>
-      </p>
+      <v-header :_lang="lang"></v-header>
       <div>
         <router-view></router-view>
       </div>
-      <!-- <div>
-        <button v-on:click="sorting('English Common Name')">Sort English Common Name</button>
-        <button v-on:click="sorting('Exhibit Code')">Sort Exhibit Code</button>
-      </div> -->
-      <div class="change-language">
-        <button v-on:click="setLang('en')">En</button>
-        <button v-on:click="setLang('tc')">繁</button>
-        <button v-on:click="setLang('sc')">簡</button>
-        <!-- <button v-on:click="getAttrByLang('location')">getAttrName</button> -->
-      </div>
-      <div class="fn-grid">
-        <exhibit-list :animal-types="animaltypes" :_exhibits="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
-      </div>
 
-      <!-- <v-header :_lang="lang"></v-header> -->
-
+      <!-- <exhibit-list :animal-types="animaltypes" :_exhibits="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list> -->
+      <exhibit-list :_lang="lang"></exhibit-list>
+      <!-- 
       <div>
         <button v-on:click="searchData('reset')">Reset</button>
         <button v-on:click="searchData('all')">Show All</button>
         <button v-on:click="searchData('animaltype','Herptile')">Search 兩棲及爬行類</button>
-      </div>
+      </div> -->
+      <v-footer :_lang="lang"></v-footer>
     </div>
     <script src="js/index.js"></script>
     <!-- <script src="js/vue-router.js"></script> -->

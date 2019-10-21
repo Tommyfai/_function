@@ -1,6 +1,6 @@
-Vue.component('v-header', {
+Vue.component('v-footer', {
   template: '<div>' +
-    ' <button v-on:click="count++"> {{ title }}  me {{ count }} xx.</button>' +
+    ' V-footer ' +
     '</div>',
   data: function () {
     return {
