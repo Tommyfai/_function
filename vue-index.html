@@ -40,9 +40,9 @@
       <div class="fn-grid">
         <exhibit-list :animal-types="animaltypes" :_exhibits="result" :_lang="lang" :_attrnames="attrnames"></exhibit-list>
       </div>
-      d
-      <v-header :_lang="lang"></v-header>
-      <Address></Address>
+
+      <!-- <v-header :_lang="lang"></v-header> -->
+
       <div>
         <button v-on:click="searchData('reset')">Reset</button>
         <button v-on:click="searchData('all')">Show All</button>
@@ -50,5 +50,7 @@
       </div>
     </div>
     <script src="js/index.js"></script>
+    <!-- <script src="js/vue-router.js"></script> -->
+    <!-- <script src="js/load-exhibits.js"></script> -->
   </body>
 </html>

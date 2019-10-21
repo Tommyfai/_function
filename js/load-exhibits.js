@@ -3,19 +3,20 @@ Vue.component('exhibit-list', {
     'a {{username}} a' +
     ' <div class="paging" >' +
     '  <div class="page-of">Size' +
-    '  <select class="page-size" v-model="size" >' +
-    '   <option>5</option>' +
-    '   <option>10</option>' +
-    '   <option>15</option>' +
-    '   <option>20</option>' +
-    '  </select>' +
-    '   Page ' +
-    '  <select class="page-current" v-model="pageNumber" >' +
-    '   <template v-for="(page, index) in pageCount" >' +
-    '    <option>{{index + 1}}</option>' +
-    '   </template>' +
-    '  </select>' +
-    ' of {{pageCount}}, Total: {{this.records.length}} </div>' +
+    '   <select class="page-size" v-model="size" >' +
+    '    <option>5</option>' +
+    '    <option>10</option>' +
+    '    <option>15</option>' +
+    '    <option>20</option>' +
+    '   </select>' +
+    '    Page ' +
+    '   <select class="page-current" v-model="pageNumber" >' +
+    '    <template v-for="(page, index) in pageCount" >' +
+    '     <option>{{index + 1}}</option>' +
+    '    </template>' +
+    '   </select>' +
+    ' of {{pageCount}}, Total: {{records.length}} ' +
+    '  </div>' +
     '  <div class="btns">' +
     '   <button class="first" :disabled="pageNumber <= 1" @click="firstPage"></button>' +
     '   <button class="previous" :disabled="pageNumber <= 1" @click="previousPage"></button>' +
@@ -162,16 +163,16 @@ Vue.component('exhibit-list', {
     }
   },
   methods: {
-    firstPage() {
+    firstPage: function () {
       this.pageNumber = 1;
     },
-    previousPage() {
+    previousPage: function () {
       this.pageNumber--;
     },
-    nextPage() {
+    nextPage: function () {
       this.pageNumber++;
     },
-    lastPage() {
+    lastPage: function () {
       this.pageNumber = this.pageCount;
     },
     getKeyById: function (_obj, _name) {
@@ -206,11 +207,11 @@ Vue.component('exhibit-list', {
     }
   },
   computed: {
-    username() {
+    username: function () {
       // console.log(this.$route.params.username)
       return this.$route.params.username
     },
-    pageCount() {
+    pageCount: function () {
       let l = this.records.length;
       let s = this.size;
       var _return = Math.ceil(l / s);
@@ -219,7 +220,7 @@ Vue.component('exhibit-list', {
       }
       return _return;
     },
-    paginatedData() {
+    paginatedData: function () {
       this.records = this._exhibits;
       var _category = this.filters.category;
       var _taxacode = this.filters.taxacode;
@@ -254,7 +255,7 @@ Vue.component('exhibit-list', {
 
 new Vue({
   el: '#rootApp',
-  router,
+  router: router,
   data: {
     animaltypes: [],
     exhibits: [],
