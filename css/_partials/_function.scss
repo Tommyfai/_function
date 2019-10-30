@@ -501,9 +501,48 @@ input {
   }
 }
 
+@mixin dbbg($color: red, $opacity: 0.3) {
+  @include bg-rgba($color, $opacity);
+}
+
+@mixin dbbd($color: red) {
+  border: 1px dashed $color;
+}
+
+@mixin ap($value: none) {
+  @include vendor-pref(appearance, $value);
+}
+
+@mixin user-select($value: none) {
+  @include vendor-pref(user-select, $value);
+}
+
+@mixin pe($value: none) {
+  @include vendor-pref(pointer-events, $value);
+}
+
 @mixin chinese {
   body.lang-tc &,
   body.lang-sc & {
+    @content;
+  }
+}
+
+@mixin A1 {
+  // @include A1{}
+  html.A1 & {
+    @content;
+  }
+}
+@mixin A2 {
+  // @include A2{}
+  html.A2 & {
+    @content;
+  }
+}
+@mixin A3 {
+  // @include A2{}
+  html.A3 & {
     @content;
   }
 }
