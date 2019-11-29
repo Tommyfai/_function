@@ -15,9 +15,10 @@ const Role = { template: '<div>Role</div>' }
 const System = { template: '<div>System</div>' }
 
 const routes = [
+  { path: '/', component: Home },
   { path: '/home', component: Home },
   {
-    path: '/product',
+    path: '/product', 
     component: Product,
     children: [
       { path: 'create', component: ProductCreate },

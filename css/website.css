@@ -640,7 +640,7 @@ body {
   padding: 0px;
   margin: 0px;
   font-size: 13px;
-  font-family: 'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', Arial, serif;
+  font-family: "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", Arial, serif;
 }
 
 @media (max-width: 768px) {
@@ -1111,3 +1111,9 @@ body a {
 .fn-grid .table .row.sorting .cell {
   padding: 1px 10px;
 }
+
+.vs-footer {
+  border: 1px solid #000;
+  padding: 10px;
+}
+/*# sourceMappingURL=website.css.map */
