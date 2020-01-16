@@ -1,55 +1,70 @@
+$bg: #fc0;
 .site {
   @include box-sizing();
-  border: 10px solid #fc0;
+  border: 20px solid #fc0;
   display: -ms-grid;
   display: grid;
+  height: 100vh;
+
   -ms-grid-columns: 2fr 1fr;
   grid-template-columns: 2fr 1fr;
-  -ms-grid-rows: 80px 1fr 1fr 1fr;
-  grid-template-rows: 80px 0.5fr 1fr 0.5fr;
+  -ms-grid-rows: 80px 0.5fr 1fr 100px;
+  grid-template-rows: 80px 0.5fr 1fr 100px;
   grid-template-areas:
     'header header'
     'title sidebar'
     'main sidebar'
     'footer footer';
-  height: 100vh;
-}
-$bg: #fc0;
-.site > * {
-  padding: 30px;
-  color: #000;
-  font-size: 1rem;
-}
-.mastheader {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: header;
-  background-color: darken($bg, 3%);
-}
-.page-title {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
-  grid-area: title;
-  background-color: darken($bg, 4%);
-}
-.main-content {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  grid-area: main;
-  background-color: darken($bg, 5%);
-}
-.sidebar {
-  -ms-grid-row: 2;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 2;
-  grid-area: sidebar;
-  background-color: darken($bg, 2%);
-}
-.footer {
-  -ms-grid-row: 4;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
-  grid-area: footer;
-  background-color: darken($bg, 6%);
+
+  @include tablet {
+    -ms-grid-columns: 1fr;
+    grid-template-columns: 1fr;
+    -ms-grid-rows: 80px 80px 0.5fr 1fr 80px;
+    grid-template-rows: 80px 80px 0.5fr 1fr 80px;
+    grid-template-areas:
+      'header'
+      'title'
+      'sidebar'
+      'main'
+      'footer';
+  }
+  > * {
+    @include transition();
+    padding: 30px;
+    color: #000;
+    font-size: 1rem;
+  }
+  .mastheader {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-area: header;
+    background-color: darken($bg, 3%);
+  }
+  .page-title {
+    -ms-grid-row: 2;
+    -ms-grid-column: 1;
+    grid-area: title;
+    background-color: darken($bg, 4%);
+  }
+  .main-content {
+    -ms-grid-row: 3;
+    -ms-grid-column: 1;
+    grid-area: main;
+    background-color: darken($bg, 5%);
+  }
+  .sidebar {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 2;
+    -ms-grid-column: 2;
+    grid-area: sidebar;
+    background-color: darken($bg, 0.5%);
+  }
+  .footer {
+    -ms-grid-row: 4;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 2;
+    grid-area: footer;
+    background-color: darken($bg, 6%);
+  }
 }
